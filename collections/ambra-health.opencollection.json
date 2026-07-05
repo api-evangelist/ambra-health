@@ -1,0 +1,233 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambra Health (InteleShare) v3 Services Public API",
+    "version": "1.0",
+    "description": "Programmatic control of the Ambra Health / InteleShare cloud medical image platform (historically the DICOM Grid API). Base URL https://access.dicomgrid.com/api/v3 (access.ambrahealth.com is an alias). JSON over HTTPS; authenticate with POST /session/login to obtain a session id (sid) supplied via the X-AmbraHealth-SID header or the sid parameter. Ambra Health is part of Intelerad Medical Systems."
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": { "key": "X-AmbraHealth-SID", "value": "{{sid}}", "in": "header" }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Session", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Login (obtain sid)", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/session/login",
+            "body": { "type": "json", "data": "{\"login\":\"user@example.com\",\"password\":\"\"}" }
+          },
+          "docs": "Authenticate with credentials to obtain a session id (sid) used to authorize subsequent calls."
+        },
+        {
+          "info": { "name": "Current user", "type": "http" },
+          "http": { "method": "GET", "url": "https://access.dicomgrid.com/api/v3/session/user" },
+          "docs": "Retrieve the current session user."
+        },
+        {
+          "info": { "name": "Permissions", "type": "http" },
+          "http": { "method": "GET", "url": "https://access.dicomgrid.com/api/v3/session/permissions" },
+          "docs": "Get the user's permissions for an account."
+        },
+        {
+          "info": { "name": "Logout", "type": "http" },
+          "http": { "method": "POST", "url": "https://access.dicomgrid.com/api/v3/session/logout" },
+          "docs": "End the current session."
+        },
+        {
+          "info": { "name": "Bundle (batch calls)", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/bundle",
+            "body": { "type": "json", "data": "[{\"URL\":\"/study/list\",\"inherit_sid\":1},{\"URL\":\"/patient/list\",\"inherit_sid\":1}]" }
+          },
+          "docs": "Run a JSON array of calls sequentially in a single request; inherit_sid shares the session across bundled calls."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Studies", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List studies", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/study/list",
+            "params": [
+              { "name": "page.rows", "value": "25", "type": "query", "description": "Rows per page." },
+              { "name": "page.number", "value": "1", "type": "query", "description": "Page number." }
+            ]
+          },
+          "docs": "List studies with filtering (filter.FIELD.CONDITION), sorting, and pagination."
+        },
+        {
+          "info": { "name": "Get study", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/study/get",
+            "params": [{ "name": "uuid", "value": "", "type": "query", "description": "Study uuid." }]
+          },
+          "docs": "Retrieve a study by uuid."
+        },
+        {
+          "info": { "name": "Add study", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/add",
+            "body": { "type": "json", "data": "{\"namespace_id\":\"\",\"study_description\":\"\",\"modality\":\"CT\"}" }
+          },
+          "docs": "Add a study."
+        },
+        {
+          "info": { "name": "Share study", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/share",
+            "body": { "type": "json", "data": "{\"uuid\":\"\",\"account_id\":\"\",\"message\":\"Please review\"}" }
+          },
+          "docs": "Share a study with a user, group, or account (Ambra's image-exchange capability)."
+        },
+        {
+          "info": { "name": "Study audit trail", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/study/audit",
+            "params": [{ "name": "uuid", "value": "", "type": "query", "description": "Study uuid." }]
+          },
+          "docs": "Get a study's audit trail."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Patients", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List patients", "type": "http" },
+          "http": { "method": "GET", "url": "https://access.dicomgrid.com/api/v3/patient/list" },
+          "docs": "List patients."
+        },
+        {
+          "info": { "name": "Patient studies", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/patient/study/list",
+            "params": [{ "name": "uuid", "value": "", "type": "query", "description": "Patient uuid." }]
+          },
+          "docs": "List a patient's studies."
+        },
+        {
+          "info": { "name": "Merge patients", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/patient/merge",
+            "body": { "type": "json", "data": "{\"uuid\":\"\",\"merge_uuid\":\"\"}" }
+          },
+          "docs": "Merge duplicate patient records into a single record."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Users & Groups", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Add user", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/user/add",
+            "body": { "type": "json", "data": "{\"email\":\"user@example.com\",\"first\":\"\",\"last\":\"\"}" }
+          },
+          "docs": "Add a user."
+        },
+        {
+          "info": { "name": "List groups", "type": "http" },
+          "http": { "method": "GET", "url": "https://access.dicomgrid.com/api/v3/group/list" },
+          "docs": "List groups."
+        },
+        {
+          "info": { "name": "Add user to group", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/group/user/add",
+            "body": { "type": "json", "data": "{\"uuid\":\"\",\"user_id\":\"\"}" }
+          },
+          "docs": "Add a user to a group."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Accounts & Namespaces", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List accounts", "type": "http" },
+          "http": { "method": "GET", "url": "https://access.dicomgrid.com/api/v3/account/list" },
+          "docs": "List accounts."
+        },
+        {
+          "info": { "name": "Namespace info", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/namespace/info",
+            "params": [{ "name": "uuid", "value": "", "type": "query", "description": "Namespace uuid." }]
+          },
+          "docs": "Get namespace info."
+        },
+        {
+          "info": { "name": "Namespace audit", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/namespace/audit",
+            "params": [{ "name": "uuid", "value": "", "type": "query", "description": "Namespace uuid." }]
+          },
+          "docs": "Get the namespace audit log."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Storage & Images", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List DICOM data", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/dicomdata/list",
+            "params": [{ "name": "study_id", "value": "", "type": "query", "description": "Study id." }]
+          },
+          "docs": "List DICOM data for a study."
+        },
+        {
+          "info": { "name": "List annotations", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/annotation/list",
+            "params": [{ "name": "study_id", "value": "", "type": "query", "description": "Study id." }]
+          },
+          "docs": "List frame-level image annotations."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Webhooks", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List webhooks", "type": "http" },
+          "http": { "method": "GET", "url": "https://access.dicomgrid.com/api/v3/webhook/list" },
+          "docs": "List webhooks."
+        },
+        {
+          "info": { "name": "Add webhook", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/webhook/add",
+            "body": { "type": "json", "data": "{\"namespace_id\":\"\",\"url\":\"https://example.com/hook\",\"event\":\"study.arrived\",\"enabled\":true}" }
+          },
+          "docs": "Create a webhook. Delivery is outbound HTTP POST to your endpoint, not a WebSocket."
+        }
+      ]
+    }
+  ]
+}

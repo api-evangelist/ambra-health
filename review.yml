@@ -1,0 +1,164 @@
+aid: ambra-health
+name: Ambra Health
+review:
+  question: Does Ambra Health expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Ambra Health's public developer surface -
+    the v3 Services Public API (historically the DICOM Grid API) at
+    https://access.dicomgrid.com/api/v3 - is request/response REST over HTTPS,
+    authenticated with a session id (sid). There is no documented server-push
+    transport (WebSocket ws://wss:// or SSE) on Ambra's own API to model. Ambra
+    does offer webhooks (/webhook/add, /webhook/list, /webhook/event), but those
+    are outbound server-to-endpoint HTTP POST callbacks, not a bidirectional
+    WebSocket the client connects to, so they would be modeled as HTTP callbacks
+    rather than an AsyncAPI WebSocket channel.
+findings:
+  summary: |
+    Ambra Health does not publish a documented public WebSocket API. Ambra Health
+    (now part of Intelerad Medical Systems and rebranded InteleShare) is a
+    cloud-based medical image management, exchange, and interoperability platform -
+    a cloud VNA / PACS for storing, viewing, routing, and sharing DICOM imaging.
+    Its public programmatic surface is the v3 Services Public API (the DICOM Grid
+    API), base https://access.dicomgrid.com/api/v3 (access.ambrahealth.com is an
+    alias). It is JSON over HTTPS, authenticated with a session id (sid) from
+    POST /session/login, supplied as a parameter or via the X-AmbraHealth-SID
+    header. Commands are grouped into session, study, patient, user, group,
+    account, namespace, sharing, storage/dicomdata/annotation, and webhook
+    families, with filtering (filter.FIELD.CONDITION), sorting, pagination, and a
+    /bundle endpoint for batching. Realtime notification is delivered via outbound
+    webhooks, not a WebSocket. No ws:// or wss:// endpoint is documented anywhere
+    in the v3 reference or the open-source Python SDK as of the review date.
+  openSource: |
+    Ambra's API itself is a proprietary, enterprise (contract-sales) platform
+    capability, not open source. However, Ambra publishes an open-source Python
+    SDK (Apache-2.0) at github.com/dicomgrid/sdk-python (docs at
+    dicomgrid.github.io/sdk-python) that wraps the v3 Services API and the Storage
+    API, organized into service namespaces (Study, Patient, Namespace, Account,
+    Annotation, Audit, Analytics, Destination, Anonymization, and more). The SDK
+    authenticates with the API URL plus a sid or username/password.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://access.dicomgrid.com/api/v3
+      documented: true
+      note: v3 Services Public API. JSON over HTTPS, sid auth via parameter or X-AmbraHealth-SID header. access.ambrahealth.com is an alias base.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Outbound HTTP POST callbacks configured via /webhook/add. Server-to-endpoint, not a client WebSocket. Event catalog is not enumerated in the public reference.
+    - protocol: Bundle (HTTP)
+      scheme: https
+      documented: true
+      note: POST /bundle runs a JSON array of calls sequentially in one request; inherit_sid + X-AmbraHealth-SID share a session across bundled calls.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the Ambra Health v3 Services API reference or the open-source Python SDK as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://access.dicomgrid.com/api/v3/session/login
+    - GET    https://access.dicomgrid.com/api/v3/session/user
+    - GET    https://access.dicomgrid.com/api/v3/session/permissions
+    - POST   https://access.dicomgrid.com/api/v3/session/logout
+    - POST   https://access.dicomgrid.com/api/v3/session/oauth/start
+    - POST   https://access.dicomgrid.com/api/v3/session/oauth
+    - POST   https://access.dicomgrid.com/api/v3/session/pin/generate
+    - POST   https://access.dicomgrid.com/api/v3/study/add
+    - GET    https://access.dicomgrid.com/api/v3/study/list
+    - GET    https://access.dicomgrid.com/api/v3/study/get
+    - POST   https://access.dicomgrid.com/api/v3/study/set
+    - POST   https://access.dicomgrid.com/api/v3/study/delete
+    - POST   https://access.dicomgrid.com/api/v3/study/share
+    - GET    https://access.dicomgrid.com/api/v3/study/share/list
+    - POST   https://access.dicomgrid.com/api/v3/study/share/stop
+    - POST   https://access.dicomgrid.com/api/v3/study/approve
+    - POST   https://access.dicomgrid.com/api/v3/study/reject
+    - POST   https://access.dicomgrid.com/api/v3/study/push
+    - POST   https://access.dicomgrid.com/api/v3/study/download
+    - GET    https://access.dicomgrid.com/api/v3/study/audit
+    - POST   https://access.dicomgrid.com/api/v3/study/comment/add
+    - POST   https://access.dicomgrid.com/api/v3/patient/add
+    - GET    https://access.dicomgrid.com/api/v3/patient/get
+    - POST   https://access.dicomgrid.com/api/v3/patient/set
+    - POST   https://access.dicomgrid.com/api/v3/patient/delete
+    - GET    https://access.dicomgrid.com/api/v3/patient/list
+    - GET    https://access.dicomgrid.com/api/v3/patient/study/list
+    - POST   https://access.dicomgrid.com/api/v3/patient/merge
+    - POST   https://access.dicomgrid.com/api/v3/user/add
+    - GET    https://access.dicomgrid.com/api/v3/user/get
+    - POST   https://access.dicomgrid.com/api/v3/user/set
+    - POST   https://access.dicomgrid.com/api/v3/user/delete
+    - POST   https://access.dicomgrid.com/api/v3/user/invite
+    - GET    https://access.dicomgrid.com/api/v3/user/namespace/list
+    - POST   https://access.dicomgrid.com/api/v3/user/token
+    - GET    https://access.dicomgrid.com/api/v3/group/list
+    - POST   https://access.dicomgrid.com/api/v3/group/add
+    - POST   https://access.dicomgrid.com/api/v3/group/set
+    - POST   https://access.dicomgrid.com/api/v3/group/delete
+    - POST   https://access.dicomgrid.com/api/v3/group/user/add
+    - GET    https://access.dicomgrid.com/api/v3/account/list
+    - GET    https://access.dicomgrid.com/api/v3/account/get
+    - POST   https://access.dicomgrid.com/api/v3/account/set
+    - POST   https://access.dicomgrid.com/api/v3/account/user/add
+    - GET    https://access.dicomgrid.com/api/v3/account/user/list
+    - POST   https://access.dicomgrid.com/api/v3/account/user/delete
+    - GET    https://access.dicomgrid.com/api/v3/namespace/permissions
+    - GET    https://access.dicomgrid.com/api/v3/namespace/settings
+    - GET    https://access.dicomgrid.com/api/v3/namespace/info
+    - GET    https://access.dicomgrid.com/api/v3/namespace/audit
+    - POST   https://access.dicomgrid.com/api/v3/filter/share
+    - POST   https://access.dicomgrid.com/api/v3/study/dicomdata/load
+    - GET    https://access.dicomgrid.com/api/v3/dicomdata/list
+    - GET    https://access.dicomgrid.com/api/v3/dicomdata/get
+    - POST   https://access.dicomgrid.com/api/v3/annotation/add
+    - GET    https://access.dicomgrid.com/api/v3/annotation/list
+    - GET    https://access.dicomgrid.com/api/v3/webhook/list
+    - POST   https://access.dicomgrid.com/api/v3/webhook/add
+    - POST   https://access.dicomgrid.com/api/v3/webhook/set
+    - POST   https://access.dicomgrid.com/api/v3/webhook/delete
+    - GET    https://access.dicomgrid.com/api/v3/webhook/event
+    - POST   https://access.dicomgrid.com/api/v3/bundle
+  endpointsModeled:
+    - note: |
+        Endpoint paths and verbs above are confirmed from the public v3 reference.
+        The request/response JSON body schemas in the OpenAPI document are honestly
+        modeled - the reference documents commands and parameters but does not
+        publish per-field JSON Schemas. Schemas are marked x-schema-status = modeled
+        and the webhook event catalog (study.arrived, study.updated, study.shared,
+        study.approved, study.rejected, study.deleted) is representative, not an
+        enumerated published list.
+  transportsNote: |
+    The only realtime/async surface Ambra exposes is outbound webhooks (HTTP POST
+    callbacks). There is no client-initiated WebSocket transport, so an AsyncAPI
+    WebSocket document is not warranted.
+sources:
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+    note: v3 Services Public API reference. Session/study/patient/user/group/account/namespace/webhook commands, sid auth, filtering, pagination, and the /bundle endpoint. No WebSocket documented.
+  - url: https://ambrahealth.com/platform/developer-tools/apis/
+    type: Documentation
+    note: Ambra Health developer tools / APIs landing (redirects into Intelerad interoperability). Enterprise, contact-sales positioning.
+  - url: https://dicomgrid.github.io/sdk-python/index.html
+    type: Documentation
+    note: Open-source Python SDK (Apache-2.0) wrapping the v3 Services API and Storage API. sid or username/password auth. No WebSocket.
+  - url: https://dicomgrid.github.io/sdk-python/storage_api.html
+    type: Documentation
+    note: Storage API - Study and Image commands for the underlying image bytes.
+  - url: https://github.com/dicomgrid/sdk-python
+    type: SourceCode
+    note: Ambra Health Python SDK source.
+  - url: https://www.intelerad.com/en/press-releases/ambra-acquisiton/
+    type: PressRelease
+    note: Intelerad acquired Ambra Health in 2021 to form a $1.7B cloud PACS / enterprise-imaging leader; Ambra later rebranded as InteleShare.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on Ambra Health's own API. The public v3
+    Services API is request/response REST over HTTPS with sid auth, and realtime
+    notification is delivered via outbound HTTP webhooks rather than a
+    client-connected WebSocket. No AsyncAPI document was created because there is
+    no server-push WebSocket/SSE transport on Ambra's own API to model.

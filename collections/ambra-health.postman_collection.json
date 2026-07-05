@@ -1,0 +1,271 @@
+{
+  "info": {
+    "name": "Ambra Health (InteleShare) v3 Services Public API",
+    "description": "Programmatic control of the Ambra Health / InteleShare cloud medical image platform (historically the DICOM Grid API). Base URL: https://access.dicomgrid.com/api/v3 (access.ambrahealth.com is an alias). JSON over HTTPS. Authenticate with POST /session/login to obtain a session id (sid), then supply it via the X-AmbraHealth-SID header or the sid parameter. Endpoint paths are confirmed from the public v3 reference; request bodies here are illustrative. Ambra Health is part of Intelerad Medical Systems.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "X-AmbraHealth-SID", "type": "string" },
+      { "key": "value", "value": "{{sid}}", "type": "string" },
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://access.dicomgrid.com/api/v3", "type": "string" },
+    { "key": "sid", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Session",
+      "item": [
+        {
+          "name": "Login (obtain sid)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"login\": \"user@example.com\",\n  \"password\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/session/login", "host": ["{{baseUrl}}"], "path": ["session", "login"] },
+            "description": "Authenticate with credentials to obtain a session id (sid)."
+          }
+        },
+        {
+          "name": "Current user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/session/user?sid={{sid}}", "host": ["{{baseUrl}}"], "path": ["session", "user"], "query": [{ "key": "sid", "value": "{{sid}}" }] },
+            "description": "Retrieve the current session user."
+          }
+        },
+        {
+          "name": "Permissions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/session/permissions?sid={{sid}}", "host": ["{{baseUrl}}"], "path": ["session", "permissions"], "query": [{ "key": "sid", "value": "{{sid}}" }] },
+            "description": "Get the user's permissions for an account."
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/session/logout?sid={{sid}}", "host": ["{{baseUrl}}"], "path": ["session", "logout"], "query": [{ "key": "sid", "value": "{{sid}}" }] },
+            "description": "End the current session."
+          }
+        },
+        {
+          "name": "Bundle (batch calls)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "X-AmbraHealth-SID", "value": "{{sid}}" }],
+            "body": { "mode": "raw", "raw": "[\n  { \"URL\": \"/study/list\", \"inherit_sid\": 1 },\n  { \"URL\": \"/patient/list\", \"inherit_sid\": 1 }\n]" },
+            "url": { "raw": "{{baseUrl}}/bundle", "host": ["{{baseUrl}}"], "path": ["bundle"] },
+            "description": "Run a JSON array of calls sequentially in a single request."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Studies",
+      "item": [
+        {
+          "name": "List studies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/study/list?sid={{sid}}&page.rows=25&page.number=1", "host": ["{{baseUrl}}"], "path": ["study", "list"], "query": [{ "key": "sid", "value": "{{sid}}" }, { "key": "page.rows", "value": "25" }, { "key": "page.number", "value": "1" }] },
+            "description": "List studies with filtering, sorting, and pagination."
+          }
+        },
+        {
+          "name": "Get study",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/study/get?sid={{sid}}&uuid=", "host": ["{{baseUrl}}"], "path": ["study", "get"], "query": [{ "key": "sid", "value": "{{sid}}" }, { "key": "uuid", "value": "" }] },
+            "description": "Retrieve a study by uuid."
+          }
+        },
+        {
+          "name": "Add study",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "X-AmbraHealth-SID", "value": "{{sid}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"namespace_id\": \"\",\n  \"study_description\": \"\",\n  \"modality\": \"CT\"\n}" },
+            "url": { "raw": "{{baseUrl}}/study/add", "host": ["{{baseUrl}}"], "path": ["study", "add"] },
+            "description": "Add a study."
+          }
+        },
+        {
+          "name": "Share study",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "X-AmbraHealth-SID", "value": "{{sid}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"uuid\": \"\",\n  \"account_id\": \"\",\n  \"message\": \"Please review\"\n}" },
+            "url": { "raw": "{{baseUrl}}/study/share", "host": ["{{baseUrl}}"], "path": ["study", "share"] },
+            "description": "Share a study with a user, group, or account."
+          }
+        },
+        {
+          "name": "Study audit trail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/study/audit?sid={{sid}}&uuid=", "host": ["{{baseUrl}}"], "path": ["study", "audit"], "query": [{ "key": "sid", "value": "{{sid}}" }, { "key": "uuid", "value": "" }] },
+            "description": "Get a study's audit trail."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Patients",
+      "item": [
+        {
+          "name": "List patients",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/patient/list?sid={{sid}}", "host": ["{{baseUrl}}"], "path": ["patient", "list"], "query": [{ "key": "sid", "value": "{{sid}}" }] },
+            "description": "List patients."
+          }
+        },
+        {
+          "name": "Patient studies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/patient/study/list?sid={{sid}}&uuid=", "host": ["{{baseUrl}}"], "path": ["patient", "study", "list"], "query": [{ "key": "sid", "value": "{{sid}}" }, { "key": "uuid", "value": "" }] },
+            "description": "List a patient's studies."
+          }
+        },
+        {
+          "name": "Merge patients",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "X-AmbraHealth-SID", "value": "{{sid}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"uuid\": \"\",\n  \"merge_uuid\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/patient/merge", "host": ["{{baseUrl}}"], "path": ["patient", "merge"] },
+            "description": "Merge duplicate patient records."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users & Groups",
+      "item": [
+        {
+          "name": "Add user",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "X-AmbraHealth-SID", "value": "{{sid}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"user@example.com\",\n  \"first\": \"\",\n  \"last\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/user/add", "host": ["{{baseUrl}}"], "path": ["user", "add"] },
+            "description": "Add a user."
+          }
+        },
+        {
+          "name": "List groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/group/list?sid={{sid}}", "host": ["{{baseUrl}}"], "path": ["group", "list"], "query": [{ "key": "sid", "value": "{{sid}}" }] },
+            "description": "List groups."
+          }
+        },
+        {
+          "name": "Add user to group",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "X-AmbraHealth-SID", "value": "{{sid}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"uuid\": \"\",\n  \"user_id\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/group/user/add", "host": ["{{baseUrl}}"], "path": ["group", "user", "add"] },
+            "description": "Add a user to a group."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Accounts & Namespaces",
+      "item": [
+        {
+          "name": "List accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/account/list?sid={{sid}}", "host": ["{{baseUrl}}"], "path": ["account", "list"], "query": [{ "key": "sid", "value": "{{sid}}" }] },
+            "description": "List accounts."
+          }
+        },
+        {
+          "name": "Namespace info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/namespace/info?sid={{sid}}&uuid=", "host": ["{{baseUrl}}"], "path": ["namespace", "info"], "query": [{ "key": "sid", "value": "{{sid}}" }, { "key": "uuid", "value": "" }] },
+            "description": "Get namespace info."
+          }
+        },
+        {
+          "name": "Namespace audit",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/namespace/audit?sid={{sid}}&uuid=", "host": ["{{baseUrl}}"], "path": ["namespace", "audit"], "query": [{ "key": "sid", "value": "{{sid}}" }, { "key": "uuid", "value": "" }] },
+            "description": "Get the namespace audit log."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Storage & Images",
+      "item": [
+        {
+          "name": "List DICOM data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/dicomdata/list?sid={{sid}}&study_id=", "host": ["{{baseUrl}}"], "path": ["dicomdata", "list"], "query": [{ "key": "sid", "value": "{{sid}}" }, { "key": "study_id", "value": "" }] },
+            "description": "List DICOM data for a study."
+          }
+        },
+        {
+          "name": "List annotations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/annotation/list?sid={{sid}}&study_id=", "host": ["{{baseUrl}}"], "path": ["annotation", "list"], "query": [{ "key": "sid", "value": "{{sid}}" }, { "key": "study_id", "value": "" }] },
+            "description": "List frame-level image annotations."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "List webhooks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/webhook/list?sid={{sid}}", "host": ["{{baseUrl}}"], "path": ["webhook", "list"], "query": [{ "key": "sid", "value": "{{sid}}" }] },
+            "description": "List webhooks."
+          }
+        },
+        {
+          "name": "Add webhook",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "X-AmbraHealth-SID", "value": "{{sid}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"namespace_id\": \"\",\n  \"url\": \"https://example.com/hook\",\n  \"event\": \"study.arrived\",\n  \"enabled\": true\n}" },
+            "url": { "raw": "{{baseUrl}}/webhook/add", "host": ["{{baseUrl}}"], "path": ["webhook", "add"] },
+            "description": "Create a webhook. Delivery is outbound HTTP POST, not a WebSocket."
+          }
+        }
+      ]
+    }
+  ]
+}

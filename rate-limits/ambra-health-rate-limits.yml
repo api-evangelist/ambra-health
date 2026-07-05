@@ -1,0 +1,67 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Ambra Health
+providerId: ambra-health
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Medical Imaging
+- DICOM
+- Healthcare
+- PACS
+- Rate Limiting
+- Quotas
+description: >-
+  The Ambra Health / InteleShare v3 Services Public API reference does not publish
+  fixed numeric rate limits, per-minute request caps, or a documented throttling
+  (429) contract. As an enterprise, per-tenant healthcare platform, practical
+  throughput is governed by the customer's environment and platform agreement
+  rather than a public per-key quota. The API does provide a first-class /bundle
+  endpoint that executes many calls sequentially in a single HTTP request, which is
+  the documented mechanism for reducing round trips and request volume. Clients
+  should still implement retry-with-backoff and treat any throttling or transient
+  error responses defensively.
+notes: >-
+  Numeric limits below are not published by Ambra and are honestly left
+  unspecified. Confirm any environment-specific limits, and storage / study
+  volume ceilings, with Ambra Health / Intelerad as part of the platform
+  agreement. The 429 mapping is a defensive assumption, not a documented value.
+sources:
+- https://access.dicomgrid.com/api/v3/api.html
+- https://dicomgrid.github.io/sdk-python/index.html
+- https://ambrahealth.com/platform/developer-tools/apis/
+responseCodes:
+  throttled: 429
+limits:
+- name: v3 Services API Requests
+  scope: session
+  metric: requests
+  limit: not published
+  notes: No fixed numeric per-session or per-account request-rate limit is documented in the v3 reference.
+- name: Bundle Batch Size
+  scope: request
+  metric: calls
+  limit: not published (sequential execution)
+  notes: The /bundle endpoint accepts a JSON array of calls executed sequentially; use it to consolidate round trips.
+- name: Storage / Study Volume
+  scope: account
+  metric: studies
+  limit: per agreement
+  notes: Stored study and image volume is governed by the customer's platform agreement, not a public API quota.
+- name: Study Upload / Download Throughput
+  scope: account
+  metric: bytes
+  limit: environment-bound
+  notes: Image transfer throughput depends on the customer's Ambra cloud environment and network, not a documented cap.
+policies:
+- name: Bundling
+  description: Use POST /bundle with inherit_sid and the X-AmbraHealth-SID header to run many calls in one request and reduce load.
+- name: Backoff Strategy
+  description: Implement exponential backoff with jitter on transient errors, and honor any Retry-After header if returned on throttling.
+- name: Session Reuse
+  description: Reuse the sid from /session/login across calls rather than re-authenticating per request to avoid unnecessary session churn.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,266 @@
+aid: ambra-health
+url: https://raw.githubusercontent.com/api-evangelist/ambra-health/refs/heads/main/apis.yml
+name: Ambra Health
+kind: company
+description: Ambra Health (now part of Intelerad Medical Systems, and rebranded as
+  InteleShare) is a cloud-based medical image management, exchange, and interoperability
+  platform - a cloud VNA and PACS that lets healthcare providers, patients, and
+  researchers store, view, route, and share diagnostic imaging in real time without
+  a VPN or CD. Its imaging data is DICOM, and its v3 Services Public API (historically
+  the DICOM Grid API) exposes programmatic control over studies, patients, users,
+  groups, accounts, namespaces, sharing, storage/images, and webhooks. The REST API
+  is JSON over HTTPS and is authenticated with a session id (sid) obtained from
+  /session/login. Intelerad acquired Ambra Health in 2021 to form a $1.7B cloud PACS
+  and enterprise-imaging leader.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Medical Imaging
+- DICOM
+- Healthcare
+- PACS
+- Image Exchange
+- Interoperability
+- VNA
+- Cloud Imaging
+created: '2026-07-05'
+modified: '2026-07-05'
+specificationVersion: '0.19'
+apis:
+- aid: ambra-health:ambra-health-session-api
+  name: Ambra Health Session API
+  tags:
+  - Authentication
+  - Session
+  - OAuth
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://access.dicomgrid.com/api/v3/api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://ambrahealth.com/platform/developer-tools/apis/
+    type: Documentation
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: Authenticate against the Ambra Health / InteleShare v3 Services API.
+    Log in with credentials to obtain a session id (sid), inspect the current user
+    and their account permissions, run the OAuth flow, generate PIN authentication,
+    and log out. The sid returned here authorizes all other endpoints.
+- aid: ambra-health:ambra-health-studies-api
+  name: Ambra Health Studies API
+  tags:
+  - Studies
+  - DICOM
+  - Imaging
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://access.dicomgrid.com/api/v3/api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: The core imaging surface. Add, list (with filtering, sorting, and
+    pagination), get, update, and delete DICOM studies; approve or reject pending
+    studies; push studies to external destinations; download study files; add
+    comments; and pull the per-study audit trail. Studies are the central object
+    of the Ambra platform.
+- aid: ambra-health:ambra-health-patients-api
+  name: Ambra Health Patients API
+  tags:
+  - Patients
+  - Records
+  - EHR
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://access.dicomgrid.com/api/v3/api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: Manage patient records that studies attach to - add, get, update,
+    delete, and list patients, list a patient's studies, and merge duplicate
+    patient records into a single consolidated record.
+- aid: ambra-health:ambra-health-users-api
+  name: Ambra Health Users API
+  tags:
+  - Users
+  - Identity
+  - Tokens
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://access.dicomgrid.com/api/v3/api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: Administer platform users - add, get, update, delete, and invite
+    users, list the namespaces a user can reach, and manage user API tokens for
+    programmatic access.
+- aid: ambra-health:ambra-health-groups-api
+  name: Ambra Health Groups API
+  tags:
+  - Groups
+  - Access Control
+  - Teams
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://access.dicomgrid.com/api/v3/api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: Organize users into groups - a group is a namespace that owns
+    studies and members. Create, list, update, and delete groups and add users to
+    them to control who can access which imaging.
+- aid: ambra-health:ambra-health-accounts-api
+  name: Ambra Health Accounts API
+  tags:
+  - Accounts
+  - Administration
+  - Tenancy
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://access.dicomgrid.com/api/v3/api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: The top-level tenant. List and get accounts, update account
+    settings and sharing configuration, and manage the users attached to an
+    account - add, list, and remove account members.
+- aid: ambra-health:ambra-health-namespaces-api
+  name: Ambra Health Namespaces API
+  tags:
+  - Namespaces
+  - Permissions
+  - Audit
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://access.dicomgrid.com/api/v3/api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: Namespaces (accounts and groups) are the containers that own studies
+    and grant access. Read namespace permissions, settings, and info, and pull the
+    namespace-level audit log to see who did what.
+- aid: ambra-health:ambra-health-sharing-api
+  name: Ambra Health Sharing API
+  tags:
+  - Sharing
+  - Image Exchange
+  - Collaboration
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://access.dicomgrid.com/api/v3/api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: Ambra's signature image-exchange capability. Share a study with
+    other users, groups, or accounts, list the active shares on a study, revoke a
+    share, and share saved filters - enabling VPN-free, CD-free collaboration on
+    diagnostic imaging.
+- aid: ambra-health:ambra-health-storage-images-api
+  name: Ambra Health Storage and Images API
+  tags:
+  - Storage
+  - Images
+  - DICOM
+  - Annotations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://dicomgrid.github.io/sdk-python/storage_api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://dicomgrid.github.io/sdk-python/storage_api.html
+    type: Documentation
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: The pixel-and-metadata layer. Load DICOM metadata into a study, list
+    and get DICOM data, and create and list frame-level image annotations. The
+    companion Storage API handles the underlying image bytes for upload and
+    retrieval.
+- aid: ambra-health:ambra-health-webhooks-api
+  name: Ambra Health Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://access.dicomgrid.com/api/v3/api.html
+  baseURL: https://access.dicomgrid.com/api/v3
+  properties:
+  - url: https://access.dicomgrid.com/api/v3/api.html
+    type: APIReference
+  - url: openapi/ambra-health-openapi.yml
+    type: OpenAPI
+  - url: collections/ambra-health.postman_collection.json
+    type: PostmanCollection
+  - url: collections/ambra-health.opencollection.json
+    type: OpenCollection
+  description: Register HTTP callbacks that Ambra invokes when platform events occur
+    (such as study activity). List, add, update, and delete webhooks and inspect
+    webhook events. Delivery is server-to-endpoint HTTP POST, not a WebSocket.
+common:
+- type: GitHubOrganization
+  url: https://github.com/dicomgrid
+- type: LinkedIn
+  url: https://www.linkedin.com/company/intelerad
+- type: Website
+  url: https://ambrahealth.com
+- type: Documentation
+  url: https://access.dicomgrid.com/api/v3/api.html
+- type: Plans
+  url: plans/ambra-health-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ambra-health-rate-limits.yml
+- type: FinOps
+  url: finops/ambra-health-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

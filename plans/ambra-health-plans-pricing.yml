@@ -1,0 +1,110 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Ambra Health
+providerId: ambra-health
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Medical Imaging
+- DICOM
+- Healthcare
+- PACS
+- Image Exchange
+- Plans
+description: >-
+  Ambra Health (InteleShare) is an enterprise, contract-sales healthcare imaging
+  platform - not a self-serve, public-price API product. There is no published
+  price list and no public credit-card signup. Access to the v3 Services Public
+  API comes with an Ambra Health / Intelerad platform agreement; pricing is quoted
+  per customer based on modules (cloud VNA / PACS, image exchange, patient portal,
+  viewer, research), storage volume, study/exam volume, number of sites and users,
+  and support tier. Following Intelerad's 2021 acquisition of Ambra Health, the
+  product is sold as part of Intelerad's enterprise-imaging and interoperability
+  portfolio. Engage Ambra Health / Intelerad sales for a quote and demo.
+notes: >-
+  All plan tiers below are honestly modeled as contact-sales tiers because Ambra
+  publishes no public pricing. The API is an included capability of the platform
+  agreement rather than a separately metered product with public per-call rates.
+  Verify current packaging directly with Ambra Health / Intelerad.
+sources:
+- https://ambrahealth.com/platform/developer-tools/apis/
+- https://www.intelerad.com/en/interoperability/
+- https://access.dicomgrid.com/api/v3/api.html
+- https://www.intelerad.com/en/press-releases/ambra-acquisiton/
+plans:
+- id: ambra-demo
+  name: Demo / Evaluation
+  type: free
+  description: >-
+    Guided demo and scoped evaluation environment arranged through Ambra Health /
+    Intelerad sales. Used to validate imaging, exchange, and API workflows before
+    a platform agreement. No public self-serve signup.
+  entries:
+  - label: Evaluation Access
+    name: evaluation_access
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: contact sales (no public price)
+    userMultiplied: false
+  elements:
+  - name: Scoped Sandbox
+  - name: v3 API Access (evaluation)
+  - name: Sales / Solutions Engineering Support
+- id: ambra-platform
+  name: Platform Agreement
+  type: enterprise
+  description: >-
+    Production Ambra Health / InteleShare subscription. Bundles the modules a
+    customer licenses - cloud VNA / PACS, image exchange, patient/provider portal,
+    universal viewer, research - with the v3 Services Public API included for
+    integration and automation. Priced per customer.
+  entries:
+  - label: Annual Platform Subscription
+    name: platform_subscription
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales (quoted by modules, storage, and volume)
+    userMultiplied: false
+  elements:
+  - name: Cloud VNA / PACS
+  - name: Image Exchange and Sharing
+  - name: v3 Services Public API
+  - name: Webhooks
+  - name: HL7 / DICOM Interoperability
+  - name: HIPAA-Aligned Hosting
+- id: ambra-enterprise
+  name: Enterprise / Health System
+  type: enterprise
+  description: >-
+    Multi-site health system and enterprise-imaging agreement with negotiated
+    storage and study volumes, SLAs, BAA, dedicated support, and integration
+    services across Intelerad's enterprise-imaging portfolio.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise_agreement
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Storage and Volume
+  - name: SLAs and BAA
+  - name: Dedicated Support
+  - name: Professional Services / Integration
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
