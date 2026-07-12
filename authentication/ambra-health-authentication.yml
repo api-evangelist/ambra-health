@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/ambra-health-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: sessionId
+  type: apiKey
+  in: header
+  parameter: X-AmbraHealth-SID
+  description: Session id (sid) obtained from POST /session/login. Also accepted as the sid
+    request parameter.
+  sources:
+  - openapi/ambra-health-openapi.yml

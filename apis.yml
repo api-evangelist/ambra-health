@@ -247,6 +247,10 @@ apis:
     (such as study activity). List, add, update, and delete webhooks and inspect
     webhook events. Delivery is server-to-endpoint HTTP POST, not a WebSocket.
 common:
+- type: DomainSecurity
+  url: security/ambra-health-domain-security.yml
+- type: Authentication
+  url: authentication/ambra-health-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/dicomgrid
 - type: LinkedIn
