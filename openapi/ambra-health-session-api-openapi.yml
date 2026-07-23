@@ -1,0 +1,256 @@
+openapi: 3.0.3
+info:
+  title: Ambra Health (InteleShare) v3 Services Public Accounts Session API
+  description: 'OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.
+
+
+    Endpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.'
+  version: v3
+  contact:
+    name: Ambra Health / Intelerad
+    url: https://ambrahealth.com/platform/developer-tools/apis/
+  license:
+    name: Proprietary - Ambra Health / Intelerad
+    url: https://ambrahealth.com
+servers:
+- url: https://access.dicomgrid.com/api/v3
+  description: Ambra Health / DICOM Grid production API (access.ambrahealth.com is an alias)
+security:
+- sessionId: []
+tags:
+- name: Session
+  description: Authentication, session, OAuth, and permissions
+paths:
+  /session/login:
+    post:
+      operationId: sessionLogin
+      tags:
+      - Session
+      summary: Log in and obtain a session id (sid)
+      description: Authenticate with credentials to obtain a session id (sid) used to authorize subsequent calls.
+      x-endpoint-status: confirmed
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Session established
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+        '401':
+          $ref: '#/components/responses/Error'
+  /session/user:
+    get:
+      operationId: sessionUser
+      tags:
+      - Session
+      summary: Get the current session user
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      responses:
+        '200':
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Error'
+  /session/permissions:
+    get:
+      operationId: sessionPermissions
+      tags:
+      - Session
+      summary: Get the user's permissions for an account
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: account_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Permission map
+          content:
+            application/json:
+              schema:
+                type: object
+                x-schema-status: modeled
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Error'
+  /session/logout:
+    post:
+      operationId: sessionLogout
+      tags:
+      - Session
+      summary: End the current session
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+  /session/oauth/start:
+    post:
+      operationId: sessionOauthStart
+      tags:
+      - Session
+      summary: Begin the OAuth flow
+      x-endpoint-status: confirmed
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+  /session/oauth:
+    post:
+      operationId: sessionOauth
+      tags:
+      - Session
+      summary: OAuth callback / token exchange
+      x-endpoint-status: confirmed
+      responses:
+        '200':
+          description: Session established via OAuth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+  /session/pin/generate:
+    post:
+      operationId: sessionPinGenerate
+      tags:
+      - Session
+      summary: Generate a PIN for PIN-based authentication
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+  /bundle:
+    post:
+      operationId: bundle
+      tags:
+      - Session
+      summary: Execute multiple API calls in a single request
+      description: POST a JSON array of hashes, each with a URL key plus parameters. Calls are processed sequentially and results returned in matching order. The inherit_sid flag plus the X-AmbraHealth-SID header let bundled calls share one session.
+      x-endpoint-status: confirmed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  URL:
+                    type: string
+                additionalProperties: true
+      responses:
+        '200':
+          description: Ordered array of results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ERROR
+        error_type:
+          type: string
+        error_subtype:
+          type: string
+        message:
+          type: string
+    Session:
+      type: object
+      x-schema-status: modeled
+      properties:
+        sid:
+          type: string
+          description: Session id used to authorize subsequent calls
+        status:
+          type: string
+          example: OK
+        user_id:
+          type: string
+    LoginRequest:
+      type: object
+      x-schema-status: modeled
+      required:
+      - login
+      - password
+      properties:
+        login:
+          type: string
+          description: Username or email
+        password:
+          type: string
+          format: password
+        account_login:
+          type: string
+    User:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        first:
+          type: string
+        last:
+          type: string
+        role:
+          type: string
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+  responses:
+    Error:
+      description: Error - the API returns an HTTP error code plus a JSON error structure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
+  securitySchemes:
+    sessionId:
+      type: apiKey
+      in: header
+      name: X-AmbraHealth-SID
+      description: Session id (sid) obtained from POST /session/login. Also accepted as the sid request parameter.

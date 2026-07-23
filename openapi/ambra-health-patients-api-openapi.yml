@@ -1,0 +1,260 @@
+openapi: 3.0.3
+info:
+  title: Ambra Health (InteleShare) v3 Services Public Accounts Patients API
+  description: 'OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.
+
+
+    Endpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.'
+  version: v3
+  contact:
+    name: Ambra Health / Intelerad
+    url: https://ambrahealth.com/platform/developer-tools/apis/
+  license:
+    name: Proprietary - Ambra Health / Intelerad
+    url: https://ambrahealth.com
+servers:
+- url: https://access.dicomgrid.com/api/v3
+  description: Ambra Health / DICOM Grid production API (access.ambrahealth.com is an alias)
+security:
+- sessionId: []
+tags:
+- name: Patients
+  description: Patient records and merges
+paths:
+  /patient/add:
+    post:
+      operationId: patientAdd
+      tags:
+      - Patients
+      summary: Add a patient
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          $ref: '#/components/responses/PatientResponse'
+  /patient/get:
+    get:
+      operationId: patientGet
+      tags:
+      - Patients
+      summary: Get a patient
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/PatientResponse'
+  /patient/set:
+    post:
+      operationId: patientSet
+      tags:
+      - Patients
+      summary: Update a patient
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          $ref: '#/components/responses/PatientResponse'
+  /patient/delete:
+    post:
+      operationId: patientDelete
+      tags:
+      - Patients
+      summary: Delete a patient
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+  /patient/list:
+    get:
+      operationId: patientList
+      tags:
+      - Patients
+      summary: List patients
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: namespace_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Patients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Patient'
+  /patient/study/list:
+    get:
+      operationId: patientStudyList
+      tags:
+      - Patients
+      summary: List a patient's studies
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Studies for the patient
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StudyList'
+  /patient/merge:
+    post:
+      operationId: patientMerge
+      tags:
+      - Patients
+      summary: Merge duplicate patient records
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-schema-status: modeled
+              properties:
+                uuid:
+                  type: string
+                  description: Surviving patient
+                merge_uuid:
+                  type: string
+                  description: Patient merged in
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+components:
+  schemas:
+    Patient:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        patientid:
+          type: string
+          description: MRN / patient identifier
+        birth_date:
+          type: string
+        sex:
+          type: string
+          enum:
+          - M
+          - F
+          - O
+          - U
+        namespace_id:
+          type: string
+    Study:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        study_uid:
+          type: string
+          description: DICOM StudyInstanceUID
+        patient_name:
+          type: string
+        patientid:
+          type: string
+        modality:
+          type: string
+          example: CT
+        study_date:
+          type: string
+        study_description:
+          type: string
+        namespace_id:
+          type: string
+        phi_namespace:
+          type: string
+        created:
+          type: string
+          format: date-time
+    StudyList:
+      type: object
+      x-schema-status: modeled
+      properties:
+        page:
+          type: object
+          properties:
+            number:
+              type: integer
+            rows:
+              type: integer
+            total:
+              type: integer
+        studies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Study'
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
+  responses:
+    PatientResponse:
+      description: A patient
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Patient'
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  securitySchemes:
+    sessionId:
+      type: apiKey
+      in: header
+      name: X-AmbraHealth-SID
+      description: Session id (sid) obtained from POST /session/login. Also accepted as the sid request parameter.

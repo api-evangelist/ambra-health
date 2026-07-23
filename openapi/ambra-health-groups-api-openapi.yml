@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: Ambra Health (InteleShare) v3 Services Public Accounts Groups API
+  description: 'OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.
+
+
+    Endpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.'
+  version: v3
+  contact:
+    name: Ambra Health / Intelerad
+    url: https://ambrahealth.com/platform/developer-tools/apis/
+  license:
+    name: Proprietary - Ambra Health / Intelerad
+    url: https://ambrahealth.com
+servers:
+- url: https://access.dicomgrid.com/api/v3
+  description: Ambra Health / DICOM Grid production API (access.ambrahealth.com is an alias)
+security:
+- sessionId: []
+tags:
+- name: Groups
+  description: User groups
+paths:
+  /group/list:
+    get:
+      operationId: groupList
+      tags:
+      - Groups
+      summary: List groups
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: account_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Groups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+  /group/add:
+    post:
+      operationId: groupAdd
+      tags:
+      - Groups
+      summary: Create a group
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          $ref: '#/components/responses/GroupResponse'
+  /group/set:
+    post:
+      operationId: groupSet
+      tags:
+      - Groups
+      summary: Update a group
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          $ref: '#/components/responses/GroupResponse'
+  /group/delete:
+    post:
+      operationId: groupDelete
+      tags:
+      - Groups
+      summary: Delete a group
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+  /group/user/add:
+    post:
+      operationId: groupUserAdd
+      tags:
+      - Groups
+      summary: Add a user to a group
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-schema-status: modeled
+              properties:
+                uuid:
+                  type: string
+                  description: Group uuid
+                user_id:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+components:
+  responses:
+    GroupResponse:
+      description: A group
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Group'
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
+  schemas:
+    Group:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        account_id:
+          type: string
+        namespace_id:
+          type: string
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+  securitySchemes:
+    sessionId:
+      type: apiKey
+      in: header
+      name: X-AmbraHealth-SID
+      description: Session id (sid) obtained from POST /session/login. Also accepted as the sid request parameter.

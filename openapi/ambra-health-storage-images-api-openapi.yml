@@ -1,0 +1,179 @@
+openapi: 3.0.3
+info:
+  title: Ambra Health (InteleShare) v3 Services Public Accounts Storage & Images API
+  description: 'OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.
+
+
+    Endpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.'
+  version: v3
+  contact:
+    name: Ambra Health / Intelerad
+    url: https://ambrahealth.com/platform/developer-tools/apis/
+  license:
+    name: Proprietary - Ambra Health / Intelerad
+    url: https://ambrahealth.com
+servers:
+- url: https://access.dicomgrid.com/api/v3
+  description: Ambra Health / DICOM Grid production API (access.ambrahealth.com is an alias)
+security:
+- sessionId: []
+tags:
+- name: Storage & Images
+  description: DICOM data, storage, and annotations
+paths:
+  /study/dicomdata/load:
+    post:
+      operationId: studyDicomdataLoad
+      tags:
+      - Storage & Images
+      summary: Load DICOM metadata for a study
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-schema-status: modeled
+              properties:
+                uuid:
+                  type: string
+      responses:
+        '200':
+          description: DICOM metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                x-schema-status: modeled
+                additionalProperties: true
+  /dicomdata/list:
+    get:
+      operationId: dicomdataList
+      tags:
+      - Storage & Images
+      summary: List DICOM data
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: study_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: DICOM data entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+  /dicomdata/get:
+    get:
+      operationId: dicomdataGet
+      tags:
+      - Storage & Images
+      summary: Get a DICOM data element
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: DICOM data
+          content:
+            application/json:
+              schema:
+                type: object
+                x-schema-status: modeled
+                additionalProperties: true
+  /annotation/add:
+    post:
+      operationId: annotationAdd
+      tags:
+      - Storage & Images
+      summary: Add a frame-level image annotation
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Annotation'
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+  /annotation/list:
+    get:
+      operationId: annotationList
+      tags:
+      - Storage & Images
+      summary: List annotations
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: study_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Annotations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Annotation'
+components:
+  schemas:
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+    Annotation:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        study_id:
+          type: string
+        image_id:
+          type: string
+        frame:
+          type: integer
+        data:
+          type: object
+          additionalProperties: true
+  responses:
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
+  securitySchemes:
+    sessionId:
+      type: apiKey
+      in: header
+      name: X-AmbraHealth-SID
+      description: Session id (sid) obtained from POST /session/login. Also accepted as the sid request parameter.

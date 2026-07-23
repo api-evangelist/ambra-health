@@ -1,0 +1,212 @@
+openapi: 3.0.3
+info:
+  title: Ambra Health (InteleShare) v3 Services Public Accounts API
+  description: 'OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.
+
+
+    Endpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.'
+  version: v3
+  contact:
+    name: Ambra Health / Intelerad
+    url: https://ambrahealth.com/platform/developer-tools/apis/
+  license:
+    name: Proprietary - Ambra Health / Intelerad
+    url: https://ambrahealth.com
+servers:
+- url: https://access.dicomgrid.com/api/v3
+  description: Ambra Health / DICOM Grid production API (access.ambrahealth.com is an alias)
+security:
+- sessionId: []
+tags:
+- name: Accounts
+  description: Account (tenant) administration
+paths:
+  /account/list:
+    get:
+      operationId: accountList
+      tags:
+      - Accounts
+      summary: List accounts
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      responses:
+        '200':
+          description: Accounts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+  /account/get:
+    get:
+      operationId: accountGet
+      tags:
+      - Accounts
+      summary: Get an account
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/AccountResponse'
+  /account/set:
+    post:
+      operationId: accountSet
+      tags:
+      - Accounts
+      summary: Update account settings
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          $ref: '#/components/responses/AccountResponse'
+  /account/user/add:
+    post:
+      operationId: accountUserAdd
+      tags:
+      - Accounts
+      summary: Add a user to an account
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-schema-status: modeled
+              properties:
+                uuid:
+                  type: string
+                  description: Account uuid
+                user_id:
+                  type: string
+                role:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+  /account/user/list:
+    get:
+      operationId: accountUserList
+      tags:
+      - Accounts
+      summary: List users in an account
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /account/user/delete:
+    post:
+      operationId: accountUserDelete
+      tags:
+      - Accounts
+      summary: Remove a user from an account
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-schema-status: modeled
+              properties:
+                uuid:
+                  type: string
+                user_id:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+components:
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
+  responses:
+    AccountResponse:
+      description: An account
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Account'
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  schemas:
+    Account:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        namespace_id:
+          type: string
+        settings:
+          type: object
+          additionalProperties: true
+    User:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        first:
+          type: string
+        last:
+          type: string
+        role:
+          type: string
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+  securitySchemes:
+    sessionId:
+      type: apiKey
+      in: header
+      name: X-AmbraHealth-SID
+      description: Session id (sid) obtained from POST /session/login. Also accepted as the sid request parameter.

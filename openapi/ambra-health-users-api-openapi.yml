@@ -1,0 +1,217 @@
+openapi: 3.0.3
+info:
+  title: Ambra Health (InteleShare) v3 Services Public Accounts Users API
+  description: 'OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.
+
+
+    Endpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.'
+  version: v3
+  contact:
+    name: Ambra Health / Intelerad
+    url: https://ambrahealth.com/platform/developer-tools/apis/
+  license:
+    name: Proprietary - Ambra Health / Intelerad
+    url: https://ambrahealth.com
+servers:
+- url: https://access.dicomgrid.com/api/v3
+  description: Ambra Health / DICOM Grid production API (access.ambrahealth.com is an alias)
+security:
+- sessionId: []
+tags:
+- name: Users
+  description: User administration and tokens
+paths:
+  /user/add:
+    post:
+      operationId: userAdd
+      tags:
+      - Users
+      summary: Add a user
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/UserResponse'
+  /user/get:
+    get:
+      operationId: userGet
+      tags:
+      - Users
+      summary: Get a user
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/UserResponse'
+  /user/set:
+    post:
+      operationId: userSet
+      tags:
+      - Users
+      summary: Update a user
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/UserResponse'
+  /user/delete:
+    post:
+      operationId: userDelete
+      tags:
+      - Users
+      summary: Delete a user
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+  /user/invite:
+    post:
+      operationId: userInvite
+      tags:
+      - Users
+      summary: Invite a user to an account
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-schema-status: modeled
+              properties:
+                email:
+                  type: string
+                  format: email
+                account_id:
+                  type: string
+                role:
+                  type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+  /user/namespace/list:
+    get:
+      operationId: userNamespaceList
+      tags:
+      - Users
+      summary: List the namespaces a user can access
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      - name: uuid
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Namespaces
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Namespace'
+  /user/token:
+    post:
+      operationId: userToken
+      tags:
+      - Users
+      summary: Manage a user's API tokens
+      x-endpoint-status: confirmed
+      parameters:
+      - $ref: '#/components/parameters/Sid'
+      responses:
+        '200':
+          $ref: '#/components/responses/Status'
+components:
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
+  responses:
+    UserResponse:
+      description: A user
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  schemas:
+    User:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        first:
+          type: string
+        last:
+          type: string
+        role:
+          type: string
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+    Namespace:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - Account
+          - Group
+          description: Namespaces are accounts or groups
+  securitySchemes:
+    sessionId:
+      type: apiKey
+      in: header
+      name: X-AmbraHealth-SID
+      description: Session id (sid) obtained from POST /session/login. Also accepted as the sid request parameter.
