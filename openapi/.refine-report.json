@@ -1,0 +1,32 @@
+{
+  "provider": "ambra-health",
+  "sources": [
+    "ambra-health-accounts-api-openapi.yml",
+    "ambra-health-groups-api-openapi.yml",
+    "ambra-health-namespaces-api-openapi.yml",
+    "ambra-health-patients-api-openapi.yml",
+    "ambra-health-session-api-openapi.yml",
+    "ambra-health-sharing-api-openapi.yml",
+    "ambra-health-storage-images-api-openapi.yml",
+    "ambra-health-studies-api-openapi.yml",
+    "ambra-health-users-api-openapi.yml",
+    "ambra-health-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "ambra-health-accounts-api-openapi.yml",
+    "ambra-health-groups-api-openapi.yml",
+    "ambra-health-namespaces-api-openapi.yml",
+    "ambra-health-patients-api-openapi.yml",
+    "ambra-health-session-api-openapi.yml",
+    "ambra-health-sharing-api-openapi.yml",
+    "ambra-health-storage-images-api-openapi.yml",
+    "ambra-health-studies-api-openapi.yml",
+    "ambra-health-users-api-openapi.yml",
+    "ambra-health-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
