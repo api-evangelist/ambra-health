@@ -1,0 +1,376 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambra Health (InteleShare) v3 Services Public Accounts Studies API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-AmbraHealth-SID",
+      "value": "{{X-AmbraHealth-SID}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Studies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add a study",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/add",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a study"
+        },
+        {
+          "info": {
+            "name": "List studies with filtering, sorting, and pagination",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/study/list",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "namespace_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page.rows",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page.number",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Supports the filter.FIELD.CONDITION syntax (equals, like, gt, lt, in, ...), sort_by, and page.rows / page.number pagination documented in the reference."
+        },
+        {
+          "info": {
+            "name": "Get a study",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/study/get",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a study"
+        },
+        {
+          "info": {
+            "name": "Update study metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/set",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update study metadata"
+        },
+        {
+          "info": {
+            "name": "Delete a study",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/delete",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete a study"
+        },
+        {
+          "info": {
+            "name": "Share a study with users, groups, or accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/share",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Share a study with users, groups, or accounts"
+        },
+        {
+          "info": {
+            "name": "List active shares on a study",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/study/share/list",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List active shares on a study"
+        },
+        {
+          "info": {
+            "name": "Revoke a study share",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/share/stop",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Revoke a study share"
+        },
+        {
+          "info": {
+            "name": "Approve a pending study",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/approve",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Approve a pending study"
+        },
+        {
+          "info": {
+            "name": "Reject a study",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/reject",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Reject a study"
+        },
+        {
+          "info": {
+            "name": "Push a study to an external destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/push",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Push a study to an external destination"
+        },
+        {
+          "info": {
+            "name": "Download / export study files",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/download",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "bundle",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Download / export study files"
+        },
+        {
+          "info": {
+            "name": "Get a study's audit trail",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/study/audit",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a study's audit trail"
+        },
+        {
+          "info": {
+            "name": "Add a comment to a study",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/comment/add",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a comment to a study"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

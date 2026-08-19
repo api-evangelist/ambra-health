@@ -1,0 +1,144 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambra Health (InteleShare) v3 Services Public Accounts Storage & Images API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-AmbraHealth-SID",
+      "value": "{{X-AmbraHealth-SID}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Storage & Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Load DICOM metadata for a study",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/study/dicomdata/load",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Load DICOM metadata for a study"
+        },
+        {
+          "info": {
+            "name": "List DICOM data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/dicomdata/list",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "study_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List DICOM data"
+        },
+        {
+          "info": {
+            "name": "Get a DICOM data element",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/dicomdata/get",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a DICOM data element"
+        },
+        {
+          "info": {
+            "name": "Add a frame-level image annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/annotation/add",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a frame-level image annotation"
+        },
+        {
+          "info": {
+            "name": "List annotations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/annotation/list",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "study_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List annotations"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,143 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambra Health (InteleShare) v3 Services Public Accounts Groups API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-AmbraHealth-SID",
+      "value": "{{X-AmbraHealth-SID}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/group/list",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List groups"
+        },
+        {
+          "info": {
+            "name": "Create a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/group/add",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a group"
+        },
+        {
+          "info": {
+            "name": "Update a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/group/set",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a group"
+        },
+        {
+          "info": {
+            "name": "Delete a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/group/delete",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete a group"
+        },
+        {
+          "info": {
+            "name": "Add a user to a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/group/user/add",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a user to a group"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambra Health (InteleShare) v3 Services Public Accounts Namespaces API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-AmbraHealth-SID",
+      "value": "{{X-AmbraHealth-SID}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Namespaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get namespace permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/namespace/permissions",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get namespace permissions"
+        },
+        {
+          "info": {
+            "name": "Get namespace settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/namespace/settings",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get namespace settings"
+        },
+        {
+          "info": {
+            "name": "Get namespace info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/namespace/info",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get namespace info"
+        },
+        {
+          "info": {
+            "name": "Get the namespace audit log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/namespace/audit",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the namespace audit log"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

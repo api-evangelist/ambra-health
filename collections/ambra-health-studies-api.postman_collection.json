@@ -1,0 +1,1545 @@
+{
+  "item": [
+    {
+      "id": "8b5fef89-4d89-44e8-8ece-89ffe102d3fb",
+      "name": "Studies",
+      "description": {
+        "content": "DICOM study lifecycle, routing, download, and audit",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d52d1f82-cb60-4e1f-b0c8-aa2ba5cfdfaa",
+          "name": "Add a study",
+          "request": {
+            "name": "Add a study",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<string>\",\n  \"namespace_id\": \"<string>\",\n  \"study_description\": \"<string>\",\n  \"modality\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "004bba67-7586-4fe5-ba2f-f85f6651a896",
+              "name": "A study",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<string>\",\n  \"namespace_id\": \"<string>\",\n  \"study_description\": \"<string>\",\n  \"modality\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"study_uid\": \"string\",\n  \"patient_name\": \"string\",\n  \"patientid\": \"string\",\n  \"modality\": \"CT\",\n  \"study_date\": \"string\",\n  \"study_description\": \"string\",\n  \"namespace_id\": \"string\",\n  \"phi_namespace\": \"string\",\n  \"created\": \"1954-06-27T11:41:28.531Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b97b152d-960e-4996-92dd-285b2aecb8d5",
+          "name": "List studies with filtering, sorting, and pagination",
+          "request": {
+            "name": "List studies with filtering, sorting, and pagination",
+            "description": {
+              "content": "Supports the filter.FIELD.CONDITION syntax (equals, like, gt, lt, in, ...), sort_by, and page.rows / page.number pagination documented in the reference.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "study",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "namespace_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page.rows",
+                  "value": "25"
+                },
+                {
+                  "disabled": false,
+                  "key": "page.number",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6fac72eb-2109-4e20-bc74-bf361db212aa",
+              "name": "Page of studies",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "namespace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page.rows",
+                      "value": "25"
+                    },
+                    {
+                      "key": "page.number",
+                      "value": "1"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"page\": {\n    \"number\": 8019,\n    \"rows\": 2852,\n    \"total\": 7231\n  },\n  \"studies\": [\n    {\n      \"uuid\": \"string\",\n      \"study_uid\": \"string\",\n      \"patient_name\": \"string\",\n      \"patientid\": \"string\",\n      \"modality\": \"CT\",\n      \"study_date\": \"string\",\n      \"study_description\": \"string\",\n      \"namespace_id\": \"string\",\n      \"phi_namespace\": \"string\",\n      \"created\": \"2015-11-11T15:22:02.647Z\"\n    },\n    {\n      \"uuid\": \"string\",\n      \"study_uid\": \"string\",\n      \"patient_name\": \"string\",\n      \"patientid\": \"string\",\n      \"modality\": \"CT\",\n      \"study_date\": \"string\",\n      \"study_description\": \"string\",\n      \"namespace_id\": \"string\",\n      \"phi_namespace\": \"string\",\n      \"created\": \"1971-07-09T08:02:33.521Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e53c399-8cdb-4a38-9f3b-59086703142b",
+          "name": "Get a study",
+          "request": {
+            "name": "Get a study",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "uuid",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6d8b0983-6caf-42b1-99ee-63e5b65ba980",
+              "name": "A study",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"study_uid\": \"string\",\n  \"patient_name\": \"string\",\n  \"patientid\": \"string\",\n  \"modality\": \"CT\",\n  \"study_date\": \"string\",\n  \"study_description\": \"string\",\n  \"namespace_id\": \"string\",\n  \"phi_namespace\": \"string\",\n  \"created\": \"1954-06-27T11:41:28.531Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4009a9e9-7977-46d0-bede-ba8323416766",
+          "name": "Update study metadata",
+          "request": {
+            "name": "Update study metadata",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "set"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<string>\",\n  \"namespace_id\": \"<string>\",\n  \"study_description\": \"<string>\",\n  \"modality\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8b5dcca2-0c30-4dcf-96f8-60e3b9b92e6f",
+              "name": "A study",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "set"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<string>\",\n  \"namespace_id\": \"<string>\",\n  \"study_description\": \"<string>\",\n  \"modality\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uuid\": \"string\",\n  \"study_uid\": \"string\",\n  \"patient_name\": \"string\",\n  \"patientid\": \"string\",\n  \"modality\": \"CT\",\n  \"study_date\": \"string\",\n  \"study_description\": \"string\",\n  \"namespace_id\": \"string\",\n  \"phi_namespace\": \"string\",\n  \"created\": \"1954-06-27T11:41:28.531Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "252d9948-d9e0-46c0-ab41-d13e6174e0f9",
+          "name": "Delete a study",
+          "request": {
+            "name": "Delete a study",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "uuid",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "15ff43bd-4f39-44ea-a601-e1f01333d758",
+              "name": "Status result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "delete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0aa5b47-568c-46c2-94a1-1f66d61f2048",
+          "name": "Share a study with users, groups, or accounts",
+          "request": {
+            "name": "Share a study with users, groups, or accounts",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "share"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e84adb9e-f825-46d6-b266-681f35030928",
+              "name": "Status result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "share"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"message\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "62ff0ffd-e6bb-497f-90c6-6a5f8fe2ece3",
+          "name": "List active shares on a study",
+          "request": {
+            "name": "List active shares on a study",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "share",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "uuid",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dab7e571-751b-41b0-9f31-e97b0a7ac47c",
+              "name": "Shares",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "share",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"string\",\n    \"study_id\": \"string\",\n    \"target_type\": \"group\",\n    \"target_id\": \"string\",\n    \"created\": \"1988-11-21T15:27:41.943Z\"\n  },\n  {\n    \"uuid\": \"string\",\n    \"study_id\": \"string\",\n    \"target_type\": \"group\",\n    \"target_id\": \"string\",\n    \"created\": \"1976-05-11T01:57:14.579Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cfa76d12-3f16-415d-9c83-983b34bac7c5",
+          "name": "Revoke a study share",
+          "request": {
+            "name": "Revoke a study share",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "share",
+                "stop"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ec579f28-674b-4178-9db8-892b687be9df",
+              "name": "Status result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "share",
+                    "stop"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<string>\",\n  \"account_id\": \"<string>\",\n  \"group_id\": \"<string>\",\n  \"user_id\": \"<string>\",\n  \"email\": \"<email>\",\n  \"message\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fd0cf0f-2ec2-4cdc-b4c3-434e05ca84c6",
+          "name": "Approve a pending study",
+          "request": {
+            "name": "Approve a pending study",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "approve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "uuid",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4caa42b2-f539-46d2-bde3-af53a7d4e87a",
+              "name": "Status result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "51a60806-18ef-4ea9-aca4-ce4aa7758f0d",
+          "name": "Reject a study",
+          "request": {
+            "name": "Reject a study",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "reject"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "uuid",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "319cb17d-2d23-480b-987e-1221bfa9456c",
+              "name": "Status result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "reject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66ee298d-09a0-451c-b10f-68eba7ac50ee",
+          "name": "Push a study to an external destination",
+          "request": {
+            "name": "Push a study to an external destination",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "push"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<string>\",\n  \"destination_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f5c80b95-82dc-4b2b-baff-d80b4cd26772",
+              "name": "Status result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "push"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<string>\",\n  \"destination_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6ef601f-668b-46a6-bcc3-49565ad74ee0",
+          "name": "Download / export study files",
+          "request": {
+            "name": "Download / export study files",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "uuid",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "bundle",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e009ff2-57e0-433a-9f35-d834739c21d7",
+              "name": "Study export",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uuid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "bundle",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0650987-301b-46fe-b719-2fdd5d8b0a76",
+          "name": "Get a study's audit trail",
+          "request": {
+            "name": "Get a study's audit trail",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "audit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "uuid",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ede6999-9a70-4abf-9a47-da42d8670a34",
+              "name": "Audit entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "audit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"string\",\n    \"action\": \"string\",\n    \"user_id\": \"string\",\n    \"created\": \"1972-06-26T02:19:28.938Z\",\n    \"detail\": {\n      \"key_0\": \"string\",\n      \"key_1\": 8478,\n      \"key_2\": 2149,\n      \"key_3\": 4086,\n      \"key_4\": false\n    }\n  },\n  {\n    \"uuid\": \"string\",\n    \"action\": \"string\",\n    \"user_id\": \"string\",\n    \"created\": \"1968-05-13T15:41:35.007Z\",\n    \"detail\": {\n      \"key_0\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0df3d01e-62f6-4571-b7ff-c0235f3f2d46",
+          "name": "Add a comment to a study",
+          "request": {
+            "name": "Add a comment to a study",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "comment",
+                "add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e38e3dc2-130a-48b5-a14b-fb49809423ad",
+              "name": "Status result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "comment",
+                    "add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<string>\",\n  \"comment\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://access.dicomgrid.com/api/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-AmbraHealth-SID"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d4319e16-2578-4cbe-a6de-c03311c75efb",
+    "name": "Ambra Health (InteleShare) v3 Services Public Accounts Studies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.\n\nEndpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.\n\nContact Support:\n Name: Ambra Health / Intelerad",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,566 @@
+{
+  "item": [
+    {
+      "id": "ad0f8c72-55a3-4475-a95f-2f432ba72464",
+      "name": "Storage & Images",
+      "description": {
+        "content": "DICOM data, storage, and annotations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f567f9f3-f61d-4951-ac41-d1a838189175",
+          "name": "Load DICOM metadata for a study",
+          "request": {
+            "name": "Load DICOM metadata for a study",
+            "description": {},
+            "url": {
+              "path": [
+                "study",
+                "dicomdata",
+                "load"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aefea59d-5e3f-4281-84b1-5684e5952165",
+              "name": "DICOM metadata",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "study",
+                    "dicomdata",
+                    "load"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": false,\n  \"key_1\": 1961,\n  \"key_2\": 9026\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67e37a1b-da04-451b-8986-95a014f8b079",
+          "name": "List DICOM data",
+          "request": {
+            "name": "List DICOM data",
+            "description": {},
+            "url": {
+              "path": [
+                "dicomdata",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "study_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3f1b10db-93a9-47de-9c15-670a3fba689e",
+              "name": "DICOM data entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dicomdata",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "study_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": \"string\",\n    \"key_1\": false,\n    \"key_2\": 1637.1078939855754\n  },\n  {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cec4c5d3-912e-463b-bdbd-3d9114a63c4a",
+          "name": "Get a DICOM data element",
+          "request": {
+            "name": "Get a DICOM data element",
+            "description": {},
+            "url": {
+              "path": [
+                "dicomdata",
+                "get"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "uuid",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d46690c3-7b30-49b4-bbea-997871703307",
+              "name": "DICOM data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dicomdata",
+                    "get"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "uuid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": false,\n  \"key_1\": 1961,\n  \"key_2\": 9026\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b537afea-271e-4a0c-bc8f-210e9206ffc3",
+          "name": "Add a frame-level image annotation",
+          "request": {
+            "name": "Add a frame-level image annotation",
+            "description": {},
+            "url": {
+              "path": [
+                "annotation",
+                "add"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuid\": \"<string>\",\n  \"study_id\": \"<string>\",\n  \"image_id\": \"<string>\",\n  \"frame\": \"<integer>\",\n  \"data\": {\n    \"key_0\": 7346,\n    \"key_1\": 3235.337515143718\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "32b8ad00-fecc-487b-9bef-5420573d2db0",
+              "name": "Status result",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation",
+                    "add"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuid\": \"<string>\",\n  \"study_id\": \"<string>\",\n  \"image_id\": \"<string>\",\n  \"frame\": \"<integer>\",\n  \"data\": {\n    \"key_0\": 4363.47717893888,\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"OK\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73151015-e9b3-4641-8207-f0771393835d",
+          "name": "List annotations",
+          "request": {
+            "name": "List annotations",
+            "description": {},
+            "url": {
+              "path": [
+                "annotation",
+                "list"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sid",
+                  "value": "<string>",
+                  "description": "(Required) Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+                },
+                {
+                  "disabled": false,
+                  "key": "study_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ad84f664-9397-45cf-b290-9596d86ed499",
+              "name": "Annotations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "annotation",
+                    "list"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "study_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-AmbraHealth-SID",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"uuid\": \"<string>\",\n    \"study_id\": \"<string>\",\n    \"image_id\": \"<string>\",\n    \"frame\": \"<integer>\",\n    \"data\": {\n      \"key_0\": false\n    }\n  },\n  {\n    \"uuid\": \"<string>\",\n    \"study_id\": \"<string>\",\n    \"image_id\": \"<string>\",\n    \"frame\": \"<integer>\",\n    \"data\": {\n      \"key_0\": \"string\",\n      \"key_1\": 9684\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://access.dicomgrid.com/api/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-AmbraHealth-SID"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "88f39f3b-cf7a-4566-8bb9-315a594ff930",
+    "name": "Ambra Health (InteleShare) v3 Services Public Accounts Storage & Images API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.\n\nEndpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.\n\nContact Support:\n Name: Ambra Health / Intelerad",
+      "type": "text/plain"
+    }
+  }
+}

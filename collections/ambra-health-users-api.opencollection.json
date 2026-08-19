@@ -1,0 +1,186 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambra Health (InteleShare) v3 Services Public Accounts Users API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-AmbraHealth-SID",
+      "value": "{{X-AmbraHealth-SID}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/user/add",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a user"
+        },
+        {
+          "info": {
+            "name": "Get a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/user/get",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a user"
+        },
+        {
+          "info": {
+            "name": "Update a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/user/set",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a user"
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/user/delete",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete a user"
+        },
+        {
+          "info": {
+            "name": "Invite a user to an account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/user/invite",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite a user to an account"
+        },
+        {
+          "info": {
+            "name": "List the namespaces a user can access",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/user/namespace/list",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List the namespaces a user can access"
+        },
+        {
+          "info": {
+            "name": "Manage a user's API tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/user/token",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ]
+          },
+          "docs": "Manage a user's API tokens"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

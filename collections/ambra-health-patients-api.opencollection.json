@@ -1,0 +1,191 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ambra Health (InteleShare) v3 Services Public Accounts Patients API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-AmbraHealth-SID",
+      "value": "{{X-AmbraHealth-SID}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Patients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Add a patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/patient/add",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a patient"
+        },
+        {
+          "info": {
+            "name": "Get a patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/patient/get",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a patient"
+        },
+        {
+          "info": {
+            "name": "Update a patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/patient/set",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a patient"
+        },
+        {
+          "info": {
+            "name": "Delete a patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/patient/delete",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete a patient"
+        },
+        {
+          "info": {
+            "name": "List patients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/patient/list",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "namespace_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List patients"
+        },
+        {
+          "info": {
+            "name": "List a patient's studies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://access.dicomgrid.com/api/v3/patient/study/list",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List a patient's studies"
+        },
+        {
+          "info": {
+            "name": "Merge duplicate patient records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://access.dicomgrid.com/api/v3/patient/merge",
+            "params": [
+              {
+                "name": "sid",
+                "value": "",
+                "type": "query",
+                "description": "Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Merge duplicate patient records"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
