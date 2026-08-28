@@ -12,6 +12,18 @@ description: Ambra Health (now part of Intelerad Medical Systems, and rebranded 
   is JSON over HTTPS and is authenticated with a session id (sid) obtained from
   /session/login. Intelerad acquired Ambra Health in 2021 to form a $1.7B cloud PACS
   and enterprise-imaging leader.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: self-serve
