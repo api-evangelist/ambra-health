@@ -1,0 +1,44 @@
+slug: ambra-health
+provider: Ambra Health
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Healthcare Providers
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Storage & Images
+  spec_file: ambra-health-storage-images-api-openapi.yml
+  capability_id: BC-2860.30
+  capability_id_l1: BC-2860
+  capability_name: Diagnostic Imaging Services
+  confidence: 0.82
+  evidence: POST /study/dicomdata/load  studyDicomdataLoad  Load DICOM metadata for a study; POST /annotation/add  Add
+    a frame-level image annotation
+  reason: DICOM metadata loading and image annotation are diagnostic imaging archival and reading operations
+    (VNA/PACS).
+- tag: Studies
+  spec_file: ambra-health-studies-api-openapi.yml
+  capability_id: BC-2860.30
+  capability_id_l1: BC-2860
+  capability_name: Diagnostic Imaging Services
+  confidence: 0.8
+  evidence: POST /study/push  studyPush  Push a study to an external destination; POST /study/download  Download
+    / export study files
+  reason: Imaging study lifecycle — add, list, update, approve/reject, push, download — is acquisition,
+    archival and distribution of diagnostic imaging studies in a cloud PACS/VNA.
+- tag: Patients
+  spec_file: ambra-health-patients-api-openapi.yml
+  capability_id: BC-2900.10
+  capability_id_l1: BC-2900
+  capability_name: Master Patient Index Management
+  confidence: 0.75
+  evidence: POST /patient/merge  patientMerge  Merge duplicate patient records
+  reason: Patient demographic record CRUD plus explicit duplicate-record merge maps to master patient
+    index stewardship / resolution of duplicate records.

@@ -260,6 +260,9 @@ apis:
   - type: Documentation
     url: https://dicomgrid.github.io/sdk-python/storage_api.html
 common:
+- type: CapabilityMap
+  url: capabilities/ambra-health-capability-edges.yml
+  name: Ambra Health Business Capability Map
 - type: AgenticAccess
   url: agentic-access/ambra-health-agentic-access.yml
 - type: DomainSecurity
