@@ -11,34 +11,46 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 3
+edge_count: 4
 edges:
-- tag: Storage & Images
-  spec_file: ambra-health-storage-images-api-openapi.yml
-  capability_id: BC-2860.30
-  capability_id_l1: BC-2860
-  capability_name: Diagnostic Imaging Services
-  confidence: 0.82
-  evidence: POST /study/dicomdata/load  studyDicomdataLoad  Load DICOM metadata for a study; POST /annotation/add  Add
-    a frame-level image annotation
-  reason: DICOM metadata loading and image annotation are diagnostic imaging archival and reading operations
-    (VNA/PACS).
 - tag: Studies
   spec_file: ambra-health-studies-api-openapi.yml
   capability_id: BC-2860.30
   capability_id_l1: BC-2860
   capability_name: Diagnostic Imaging Services
   confidence: 0.8
-  evidence: POST /study/push  studyPush  Push a study to an external destination; POST /study/download  Download
-    / export study files
-  reason: Imaging study lifecycle — add, list, update, approve/reject, push, download — is acquisition,
-    archival and distribution of diagnostic imaging studies in a cloud PACS/VNA.
+  evidence: POST /study/add  Add a study; POST /study/push  Push a study to an external destination; POST
+    /study/download  Download / export study files
+  reason: The 'study' object here is a DICOM imaging study; the operations manage its lifecycle, routing
+    and export within a cloud PACS/VNA, which is Diagnostic Imaging Services. Note 'Studies' is not a
+    clinical-trial or research concept for this vendor.
+- tag: Storage & Images
+  spec_file: ambra-health-storage-images-api-openapi.yml
+  capability_id: BC-2860.30
+  capability_id_l1: BC-2860
+  capability_name: Diagnostic Imaging Services
+  confidence: 0.75
+  evidence: POST /study/dicomdata/load  Load DICOM metadata for a study; POST /annotation/add  Add a frame-level
+    image annotation
+  reason: DICOM metadata retrieval and frame-level image annotation are core diagnostic imaging archive/reading
+    operations of a cloud VNA/PACS, matching Diagnostic Imaging Services (acquisition, reading, archival).
 - tag: Patients
   spec_file: ambra-health-patients-api-openapi.yml
   capability_id: BC-2900.10
   capability_id_l1: BC-2900
   capability_name: Master Patient Index Management
-  confidence: 0.75
-  evidence: POST /patient/merge  patientMerge  Merge duplicate patient records
-  reason: Patient demographic record CRUD plus explicit duplicate-record merge maps to master patient
-    index stewardship / resolution of duplicate records.
+  confidence: 0.72
+  evidence: POST /patient/merge patientMerge  Merge duplicate patient records
+  reason: Operations create, update, list patient records, list a patient's imaging studies, and explicitly
+    merge duplicate patient records — patient identity stewardship and duplicate resolution, i.e. master
+    patient index management (registration is a plausible alternative reading).
+- tag: Users
+  spec_file: ambra-health-users-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /user/invite  Invite a user to an account; GET /user/namespace/list  List the namespaces
+    a user can access; POST /user/token  Manage a user's API tokens
+  reason: Account user provisioning, invitation, namespace access scoping and API token management is
+    identity and access administration, not a healthcare business capability.
