@@ -142,6 +142,8 @@ apis:
   humanURL: https://access.dicomgrid.com/api/v3/api.html
   baseURL: https://access.dicomgrid.com/api/v3
   tags:
+  - Sessions
+  tags_raw:
   - Session
   properties:
   - type: OpenAPI
