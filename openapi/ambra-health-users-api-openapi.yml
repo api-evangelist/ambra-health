@@ -1,10 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Ambra Health (InteleShare) v3 Services Public Accounts Users API
-  description: 'OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.
-
-
-    Endpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.'
+  title: Ambra Health (InteleShare) v3 Services Public Users API
+  description: OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API).
   version: v3
   contact:
     name: Ambra Health / Intelerad
@@ -159,19 +156,33 @@ components:
       schema:
         type: string
   responses:
-    UserResponse:
-      description: A user
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/User'
     Status:
       description: Status result
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
+    UserResponse:
+      description: A user
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
   schemas:
+    Namespace:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - Account
+          - Group
+          description: Namespaces are accounts or groups
     User:
       type: object
       x-schema-status: modeled
@@ -195,20 +206,6 @@ components:
         status:
           type: string
           example: OK
-    Namespace:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - Account
-          - Group
-          description: Namespaces are accounts or groups
   securitySchemes:
     sessionId:
       type: apiKey

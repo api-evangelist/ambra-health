@@ -1,16 +1,7 @@
 {
   "provider": "ambra-health",
   "sources": [
-    "ambra-health-accounts-api-openapi.yml",
-    "ambra-health-groups-api-openapi.yml",
-    "ambra-health-namespaces-api-openapi.yml",
-    "ambra-health-patients-api-openapi.yml",
-    "ambra-health-session-api-openapi.yml",
-    "ambra-health-sharing-api-openapi.yml",
-    "ambra-health-storage-images-api-openapi.yml",
-    "ambra-health-studies-api-openapi.yml",
-    "ambra-health-users-api-openapi.yml",
-    "ambra-health-webhooks-api-openapi.yml"
+    "_original/ambra-health-openapi.yml"
   ],
   "outputs": [
     "ambra-health-accounts-api-openapi.yml",
@@ -27,6 +18,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "ambra-health-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "ambra-health-accounts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambra-health-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambra-health-namespaces-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambra-health-patients-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambra-health-session-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambra-health-sharing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambra-health-storage-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambra-health-studies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambra-health-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ambra-health-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

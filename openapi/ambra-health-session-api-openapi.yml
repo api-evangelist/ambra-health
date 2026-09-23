@@ -1,10 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Ambra Health (InteleShare) v3 Services Public Accounts Session API
-  description: 'OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API). Ambra Health is a cloud-based medical image management, exchange, and interoperability platform, now part of Intelerad Medical Systems. The API is JSON over HTTPS and is authenticated with a session id (sid) obtained from POST /session/login; the sid is then supplied on subsequent requests as a parameter or via the X-AmbraHealth-SID header.
-
-
-    Endpoint paths, HTTP verbs, and the sid/bundle mechanics are grounded in the public v3 API reference at https://access.dicomgrid.com/api/v3/api.html and the open-source Python SDK (github.com/dicomgrid/sdk-python). Request and response bodies below are HONESTLY MODELED representative schemas: the public reference documents commands and parameters but does not publish per-field JSON Schemas, so the schemas here are illustrative of shape rather than an exhaustive contract. Operations grounded directly in the reference are marked x-endpoint-status = confirmed; illustrative body schemas are marked x-schema-status = modeled.'
+  title: Ambra Health (InteleShare) v3 Services Public Session API
+  description: OpenAPI description of the Ambra Health / InteleShare v3 Services Public API (historically the DICOM Grid API).
   version: v3
   contact:
     name: Ambra Health / Intelerad
@@ -164,19 +161,15 @@ paths:
                   type: object
                   additionalProperties: true
 components:
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   schemas:
-    Error:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ERROR
-        error_type:
-          type: string
-        error_subtype:
-          type: string
-        message:
-          type: string
     Session:
       type: object
       x-schema-status: modeled
@@ -221,6 +214,18 @@ components:
           type: string
         role:
           type: string
+    Error:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ERROR
+        error_type:
+          type: string
+        error_subtype:
+          type: string
+        message:
+          type: string
     Status:
       type: object
       properties:
@@ -228,26 +233,18 @@ components:
           type: string
           example: OK
   responses:
-    Error:
-      description: Error - the API returns an HTTP error code plus a JSON error structure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Status:
       description: Status result
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
+    Error:
+      description: Error - the API returns an HTTP error code plus a JSON error structure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     sessionId:
       type: apiKey
