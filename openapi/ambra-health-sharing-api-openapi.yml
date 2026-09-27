@@ -99,22 +99,26 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
-  responses:
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   schemas:
+    Share:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        study_id:
+          type: string
+        target_type:
+          type: string
+          enum:
+          - user
+          - group
+          - account
+        target_id:
+          type: string
+        created:
+          type: string
+          format: date-time
     ShareRequest:
       type: object
       x-schema-status: modeled
@@ -135,31 +139,27 @@ components:
           format: email
         message:
           type: string
-    Share:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        study_id:
-          type: string
-        target_type:
-          type: string
-          enum:
-          - user
-          - group
-          - account
-        target_id:
-          type: string
-        created:
-          type: string
-          format: date-time
     Status:
       type: object
       properties:
         status:
           type: string
           example: OK
+  responses:
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   securitySchemes:
     sessionId:
       type: apiKey

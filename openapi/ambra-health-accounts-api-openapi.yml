@@ -143,41 +143,7 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
-  responses:
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    AccountResponse:
-      description: An account
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Account'
   schemas:
-    Account:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        name:
-          type: string
-        namespace_id:
-          type: string
-        settings:
-          type: object
-          additionalProperties: true
     User:
       type: object
       x-schema-status: modeled
@@ -195,12 +161,46 @@ components:
           type: string
         role:
           type: string
+    Account:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        namespace_id:
+          type: string
+        settings:
+          type: object
+          additionalProperties: true
     Status:
       type: object
       properties:
         status:
           type: string
           example: OK
+  responses:
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    AccountResponse:
+      description: An account
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Account'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   securitySchemes:
     sessionId:
       type: apiKey

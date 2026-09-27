@@ -116,14 +116,6 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
   responses:
     Status:
       description: Status result
@@ -156,6 +148,14 @@ components:
         status:
           type: string
           example: OK
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   securitySchemes:
     sessionId:
       type: apiKey

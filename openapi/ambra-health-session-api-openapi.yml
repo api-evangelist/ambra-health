@@ -161,14 +161,6 @@ paths:
                   type: object
                   additionalProperties: true
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
   schemas:
     Session:
       type: object
@@ -181,21 +173,6 @@ components:
           type: string
           example: OK
         user_id:
-          type: string
-    LoginRequest:
-      type: object
-      x-schema-status: modeled
-      required:
-      - login
-      - password
-      properties:
-        login:
-          type: string
-          description: Username or email
-        password:
-          type: string
-          format: password
-        account_login:
           type: string
     User:
       type: object
@@ -232,19 +209,42 @@ components:
         status:
           type: string
           example: OK
+    LoginRequest:
+      type: object
+      x-schema-status: modeled
+      required:
+      - login
+      - password
+      properties:
+        login:
+          type: string
+          description: Username or email
+        password:
+          type: string
+          format: password
+        account_login:
+          type: string
   responses:
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
     Error:
       description: Error - the API returns an HTTP error code plus a JSON error structure
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   securitySchemes:
     sessionId:
       type: apiKey

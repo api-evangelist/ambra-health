@@ -313,52 +313,6 @@ paths:
           $ref: '#/components/responses/Status'
 components:
   schemas:
-    AuditEntry:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        action:
-          type: string
-        user_id:
-          type: string
-        created:
-          type: string
-          format: date-time
-        detail:
-          type: object
-          additionalProperties: true
-    StudyList:
-      type: object
-      x-schema-status: modeled
-      properties:
-        page:
-          type: object
-          properties:
-            number:
-              type: integer
-            rows:
-              type: integer
-            total:
-              type: integer
-        studies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Study'
-    StudyWrite:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-          description: Present on update
-        namespace_id:
-          type: string
-        study_description:
-          type: string
-        modality:
-          type: string
     Study:
       type: object
       x-schema-status: modeled
@@ -405,6 +359,22 @@ components:
         created:
           type: string
           format: date-time
+    AuditEntry:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        action:
+          type: string
+        user_id:
+          type: string
+        created:
+          type: string
+          format: date-time
+        detail:
+          type: object
+          additionalProperties: true
     ShareRequest:
       type: object
       x-schema-status: modeled
@@ -425,12 +395,55 @@ components:
           format: email
         message:
           type: string
+    StudyList:
+      type: object
+      x-schema-status: modeled
+      properties:
+        page:
+          type: object
+          properties:
+            number:
+              type: integer
+            rows:
+              type: integer
+            total:
+              type: integer
+        studies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Study'
+    StudyWrite:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+          description: Present on update
+        namespace_id:
+          type: string
+        study_description:
+          type: string
+        modality:
+          type: string
     Status:
       type: object
       properties:
         status:
           type: string
           example: OK
+  responses:
+    StudyResponse:
+      description: A study
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Study'
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   parameters:
     Sid:
       name: sid
@@ -439,19 +452,6 @@ components:
       description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
       schema:
         type: string
-  responses:
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    StudyResponse:
-      description: A study
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Study'
   securitySchemes:
     sessionId:
       type: apiKey

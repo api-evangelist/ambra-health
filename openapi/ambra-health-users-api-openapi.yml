@@ -147,42 +147,7 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
-  responses:
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    UserResponse:
-      description: A user
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/User'
   schemas:
-    Namespace:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - Account
-          - Group
-          description: Namespaces are accounts or groups
     User:
       type: object
       x-schema-status: modeled
@@ -200,12 +165,47 @@ components:
           type: string
         role:
           type: string
+    Namespace:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - Account
+          - Group
+          description: Namespaces are accounts or groups
     Status:
       type: object
       properties:
         status:
           type: string
           example: OK
+  responses:
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    UserResponse:
+      description: A user
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   securitySchemes:
     sessionId:
       type: apiKey
