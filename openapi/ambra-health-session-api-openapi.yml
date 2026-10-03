@@ -161,7 +161,36 @@ paths:
                   type: object
                   additionalProperties: true
 components:
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   schemas:
+    LoginRequest:
+      type: object
+      x-schema-status: modeled
+      required:
+      - login
+      - password
+      properties:
+        login:
+          type: string
+          description: Username or email
+        password:
+          type: string
+          format: password
+        account_login:
+          type: string
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
     Session:
       type: object
       x-schema-status: modeled
@@ -203,27 +232,6 @@ components:
           type: string
         message:
           type: string
-    Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
-    LoginRequest:
-      type: object
-      x-schema-status: modeled
-      required:
-      - login
-      - password
-      properties:
-        login:
-          type: string
-          description: Username or email
-        password:
-          type: string
-          format: password
-        account_login:
-          type: string
   responses:
     Error:
       description: Error - the API returns an HTTP error code plus a JSON error structure
@@ -237,14 +245,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
   securitySchemes:
     sessionId:
       type: apiKey

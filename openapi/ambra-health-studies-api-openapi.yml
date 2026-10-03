@@ -312,7 +312,106 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   schemas:
+    ShareRequest:
+      type: object
+      x-schema-status: modeled
+      required:
+      - uuid
+      properties:
+        uuid:
+          type: string
+          description: Study uuid
+        account_id:
+          type: string
+        group_id:
+          type: string
+        user_id:
+          type: string
+        email:
+          type: string
+          format: email
+        message:
+          type: string
+    AuditEntry:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        action:
+          type: string
+        user_id:
+          type: string
+        created:
+          type: string
+          format: date-time
+        detail:
+          type: object
+          additionalProperties: true
+    StudyList:
+      type: object
+      x-schema-status: modeled
+      properties:
+        page:
+          type: object
+          properties:
+            number:
+              type: integer
+            rows:
+              type: integer
+            total:
+              type: integer
+        studies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Study'
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+    Share:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        study_id:
+          type: string
+        target_type:
+          type: string
+          enum:
+          - user
+          - group
+          - account
+        target_id:
+          type: string
+        created:
+          type: string
+          format: date-time
+    StudyWrite:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+          description: Present on update
+        namespace_id:
+          type: string
+        study_description:
+          type: string
+        modality:
+          type: string
     Study:
       type: object
       x-schema-status: modeled
@@ -340,97 +439,6 @@ components:
         created:
           type: string
           format: date-time
-    Share:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        study_id:
-          type: string
-        target_type:
-          type: string
-          enum:
-          - user
-          - group
-          - account
-        target_id:
-          type: string
-        created:
-          type: string
-          format: date-time
-    AuditEntry:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        action:
-          type: string
-        user_id:
-          type: string
-        created:
-          type: string
-          format: date-time
-        detail:
-          type: object
-          additionalProperties: true
-    ShareRequest:
-      type: object
-      x-schema-status: modeled
-      required:
-      - uuid
-      properties:
-        uuid:
-          type: string
-          description: Study uuid
-        account_id:
-          type: string
-        group_id:
-          type: string
-        user_id:
-          type: string
-        email:
-          type: string
-          format: email
-        message:
-          type: string
-    StudyList:
-      type: object
-      x-schema-status: modeled
-      properties:
-        page:
-          type: object
-          properties:
-            number:
-              type: integer
-            rows:
-              type: integer
-            total:
-              type: integer
-        studies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Study'
-    StudyWrite:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-          description: Present on update
-        namespace_id:
-          type: string
-        study_description:
-          type: string
-        modality:
-          type: string
-    Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
   responses:
     StudyResponse:
       description: A study
@@ -444,14 +452,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
   securitySchemes:
     sessionId:
       type: apiKey

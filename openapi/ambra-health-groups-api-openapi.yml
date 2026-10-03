@@ -116,19 +116,14 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
-  responses:
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    GroupResponse:
-      description: A group
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Group'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   schemas:
     Group:
       type: object
@@ -148,14 +143,19 @@ components:
         status:
           type: string
           example: OK
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
+  responses:
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+    GroupResponse:
+      description: A group
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Group'
   securitySchemes:
     sessionId:
       type: apiKey

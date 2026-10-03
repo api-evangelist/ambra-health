@@ -155,7 +155,60 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   schemas:
+    Patient:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        patientid:
+          type: string
+          description: MRN / patient identifier
+        birth_date:
+          type: string
+        sex:
+          type: string
+          enum:
+          - M
+          - F
+          - O
+          - U
+        namespace_id:
+          type: string
+    StudyList:
+      type: object
+      x-schema-status: modeled
+      properties:
+        page:
+          type: object
+          properties:
+            number:
+              type: integer
+            rows:
+              type: integer
+            total:
+              type: integer
+        studies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Study'
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
     Study:
       type: object
       x-schema-status: modeled
@@ -183,72 +236,19 @@ components:
         created:
           type: string
           format: date-time
-    StudyList:
-      type: object
-      x-schema-status: modeled
-      properties:
-        page:
-          type: object
-          properties:
-            number:
-              type: integer
-            rows:
-              type: integer
-            total:
-              type: integer
-        studies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Study'
-    Patient:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        name:
-          type: string
-        patientid:
-          type: string
-          description: MRN / patient identifier
-        birth_date:
-          type: string
-        sex:
-          type: string
-          enum:
-          - M
-          - F
-          - O
-          - U
-        namespace_id:
-          type: string
-    Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
   responses:
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
     PatientResponse:
       description: A patient
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Patient'
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   securitySchemes:
     sessionId:
       type: apiKey
