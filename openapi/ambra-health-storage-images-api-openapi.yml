@@ -139,12 +139,6 @@ components:
           schema:
             $ref: '#/components/schemas/Status'
   schemas:
-    Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
     Annotation:
       type: object
       x-schema-status: modeled
@@ -160,6 +154,12 @@ components:
         data:
           type: object
           additionalProperties: true
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
   parameters:
     Sid:
       name: sid

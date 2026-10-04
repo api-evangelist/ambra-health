@@ -312,34 +312,65 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
   schemas:
-    ShareRequest:
+    Study:
       type: object
       x-schema-status: modeled
-      required:
-      - uuid
       properties:
         uuid:
           type: string
-          description: Study uuid
-        account_id:
+        study_uid:
           type: string
-        group_id:
+          description: DICOM StudyInstanceUID
+        patient_name:
           type: string
-        user_id:
+        patientid:
           type: string
-        email:
+        modality:
           type: string
-          format: email
-        message:
+          example: CT
+        study_date:
+          type: string
+        study_description:
+          type: string
+        namespace_id:
+          type: string
+        phi_namespace:
+          type: string
+        created:
+          type: string
+          format: date-time
+    Share:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        study_id:
+          type: string
+        target_type:
+          type: string
+          enum:
+          - user
+          - group
+          - account
+        target_id:
+          type: string
+        created:
+          type: string
+          format: date-time
+    StudyWrite:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+          description: Present on update
+        namespace_id:
+          type: string
+        study_description:
+          type: string
+        modality:
           type: string
     AuditEntry:
       type: object
@@ -374,71 +405,32 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Study'
+    ShareRequest:
+      type: object
+      x-schema-status: modeled
+      required:
+      - uuid
+      properties:
+        uuid:
+          type: string
+          description: Study uuid
+        account_id:
+          type: string
+        group_id:
+          type: string
+        user_id:
+          type: string
+        email:
+          type: string
+          format: email
+        message:
+          type: string
     Status:
       type: object
       properties:
         status:
           type: string
           example: OK
-    Share:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        study_id:
-          type: string
-        target_type:
-          type: string
-          enum:
-          - user
-          - group
-          - account
-        target_id:
-          type: string
-        created:
-          type: string
-          format: date-time
-    StudyWrite:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-          description: Present on update
-        namespace_id:
-          type: string
-        study_description:
-          type: string
-        modality:
-          type: string
-    Study:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        study_uid:
-          type: string
-          description: DICOM StudyInstanceUID
-        patient_name:
-          type: string
-        patientid:
-          type: string
-        modality:
-          type: string
-          example: CT
-        study_date:
-          type: string
-        study_description:
-          type: string
-        namespace_id:
-          type: string
-        phi_namespace:
-          type: string
-        created:
-          type: string
-          format: date-time
   responses:
     StudyResponse:
       description: A study
@@ -452,6 +444,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   securitySchemes:
     sessionId:
       type: apiKey

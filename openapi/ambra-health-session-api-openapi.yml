@@ -169,28 +169,20 @@ components:
       description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
       schema:
         type: string
-  schemas:
-    LoginRequest:
-      type: object
-      x-schema-status: modeled
-      required:
-      - login
-      - password
-      properties:
-        login:
-          type: string
-          description: Username or email
-        password:
-          type: string
-          format: password
-        account_login:
-          type: string
+  responses:
+    Error:
+      description: Error - the API returns an HTTP error code plus a JSON error structure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  schemas:
     Session:
       type: object
       x-schema-status: modeled
@@ -232,19 +224,27 @@ components:
           type: string
         message:
           type: string
-  responses:
-    Error:
-      description: Error - the API returns an HTTP error code plus a JSON error structure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    LoginRequest:
+      type: object
+      x-schema-status: modeled
+      required:
+      - login
+      - password
+      properties:
+        login:
+          type: string
+          description: Username or email
+        password:
+          type: string
+          format: password
+        account_login:
+          type: string
     Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
   securitySchemes:
     sessionId:
       type: apiKey

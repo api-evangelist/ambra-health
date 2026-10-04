@@ -152,6 +152,23 @@ components:
       schema:
         type: string
   schemas:
+    User:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        first:
+          type: string
+        last:
+          type: string
+        role:
+          type: string
     Account:
       type: object
       x-schema-status: modeled
@@ -171,36 +188,19 @@ components:
         status:
           type: string
           example: OK
-    User:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        first:
-          type: string
-        last:
-          type: string
-        role:
-          type: string
   responses:
-    AccountResponse:
-      description: An account
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Account'
     Status:
       description: Status result
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Status'
+    AccountResponse:
+      description: An account
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Account'
   securitySchemes:
     sessionId:
       type: apiKey

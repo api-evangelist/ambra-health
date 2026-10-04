@@ -122,6 +122,23 @@ components:
       schema:
         type: string
   schemas:
+    Webhook:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        namespace_id:
+          type: string
+        url:
+          type: string
+          format: uri
+          description: Endpoint Ambra POSTs events to
+        event:
+          type: string
+          description: Event the webhook fires on
+        enabled:
+          type: boolean
     WebhookEvent:
       type: object
       x-schema-status: modeled
@@ -146,23 +163,6 @@ components:
         occurred:
           type: string
           format: date-time
-    Webhook:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        namespace_id:
-          type: string
-        url:
-          type: string
-          format: uri
-          description: Endpoint Ambra POSTs events to
-        event:
-          type: string
-          description: Event the webhook fires on
-        enabled:
-          type: boolean
     Status:
       type: object
       properties:

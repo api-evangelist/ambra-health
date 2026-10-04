@@ -155,7 +155,37 @@ components:
       description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
       schema:
         type: string
+  responses:
+    UserResponse:
+      description: A user
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   schemas:
+    User:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        first:
+          type: string
+        last:
+          type: string
+        role:
+          type: string
     Namespace:
       type: object
       x-schema-status: modeled
@@ -176,36 +206,6 @@ components:
         status:
           type: string
           example: OK
-    User:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        first:
-          type: string
-        last:
-          type: string
-        role:
-          type: string
-  responses:
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
-    UserResponse:
-      description: A user
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/User'
   securitySchemes:
     sessionId:
       type: apiKey
