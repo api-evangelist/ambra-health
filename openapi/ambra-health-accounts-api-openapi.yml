@@ -143,14 +143,6 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
   schemas:
     User:
       type: object
@@ -169,6 +161,12 @@ components:
           type: string
         role:
           type: string
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
     Account:
       type: object
       x-schema-status: modeled
@@ -182,12 +180,14 @@ components:
         settings:
           type: object
           additionalProperties: true
-    Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   responses:
     Status:
       description: Status result

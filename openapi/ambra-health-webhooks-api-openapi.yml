@@ -113,32 +113,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/WebhookEvent'
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
+  responses:
+    WebhookResponse:
+      description: A webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Webhook'
+    Status:
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
   schemas:
-    Webhook:
+    Status:
       type: object
-      x-schema-status: modeled
       properties:
-        uuid:
+        status:
           type: string
-        namespace_id:
-          type: string
-        url:
-          type: string
-          format: uri
-          description: Endpoint Ambra POSTs events to
-        event:
-          type: string
-          description: Event the webhook fires on
-        enabled:
-          type: boolean
+          example: OK
     WebhookEvent:
       type: object
       x-schema-status: modeled
@@ -163,25 +157,31 @@ components:
         occurred:
           type: string
           format: date-time
-    Status:
+    Webhook:
       type: object
+      x-schema-status: modeled
       properties:
-        status:
+        uuid:
           type: string
-          example: OK
-  responses:
-    WebhookResponse:
-      description: A webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Webhook'
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
+        namespace_id:
+          type: string
+        url:
+          type: string
+          format: uri
+          description: Endpoint Ambra POSTs events to
+        event:
+          type: string
+          description: Event the webhook fires on
+        enabled:
+          type: boolean
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   securitySchemes:
     sessionId:
       type: apiKey

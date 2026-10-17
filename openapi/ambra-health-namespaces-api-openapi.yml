@@ -110,6 +110,20 @@ paths:
                   $ref: '#/components/schemas/AuditEntry'
 components:
   schemas:
+    Namespace:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - Account
+          - Group
+          description: Namespaces are accounts or groups
     AuditEntry:
       type: object
       x-schema-status: modeled
@@ -126,20 +140,6 @@ components:
         detail:
           type: object
           additionalProperties: true
-    Namespace:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - Account
-          - Group
-          description: Namespaces are accounts or groups
   parameters:
     Sid:
       name: sid

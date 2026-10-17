@@ -161,40 +161,7 @@ paths:
                   type: object
                   additionalProperties: true
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
-  responses:
-    Error:
-      description: Error - the API returns an HTTP error code plus a JSON error structure
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   schemas:
-    Session:
-      type: object
-      x-schema-status: modeled
-      properties:
-        sid:
-          type: string
-          description: Session id used to authorize subsequent calls
-        status:
-          type: string
-          example: OK
-        user_id:
-          type: string
     User:
       type: object
       x-schema-status: modeled
@@ -211,6 +178,24 @@ components:
         last:
           type: string
         role:
+          type: string
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+    Session:
+      type: object
+      x-schema-status: modeled
+      properties:
+        sid:
+          type: string
+          description: Session id used to authorize subsequent calls
+        status:
+          type: string
+          example: OK
+        user_id:
           type: string
     Error:
       type: object
@@ -239,12 +224,27 @@ components:
           format: password
         account_login:
           type: string
+  responses:
+    Error:
+      description: Error - the API returns an HTTP error code plus a JSON error structure
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   securitySchemes:
     sessionId:
       type: apiKey

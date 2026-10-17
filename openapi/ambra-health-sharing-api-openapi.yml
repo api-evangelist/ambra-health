@@ -99,15 +99,13 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
   schemas:
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
     Share:
       type: object
       x-schema-status: modeled
@@ -147,12 +145,14 @@ components:
           format: email
         message:
           type: string
-    Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   responses:
     Status:
       description: Status result

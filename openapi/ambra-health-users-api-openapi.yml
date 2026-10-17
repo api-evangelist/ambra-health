@@ -147,27 +147,6 @@ paths:
         '200':
           $ref: '#/components/responses/Status'
 components:
-  parameters:
-    Sid:
-      name: sid
-      in: query
-      required: true
-      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
-      schema:
-        type: string
-  responses:
-    UserResponse:
-      description: A user
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/User'
-    Status:
-      description: Status result
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Status'
   schemas:
     User:
       type: object
@@ -186,6 +165,12 @@ components:
           type: string
         role:
           type: string
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
     Namespace:
       type: object
       x-schema-status: modeled
@@ -200,12 +185,27 @@ components:
           - Account
           - Group
           description: Namespaces are accounts or groups
+  responses:
+    UserResponse:
+      description: A user
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
     Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
+      description: Status result
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Status'
+  parameters:
+    Sid:
+      name: sid
+      in: query
+      required: true
+      description: Session id from POST /session/login. May also be sent via the X-AmbraHealth-SID header.
+      schema:
+        type: string
   securitySchemes:
     sessionId:
       type: apiKey

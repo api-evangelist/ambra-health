@@ -313,6 +313,41 @@ paths:
           $ref: '#/components/responses/Status'
 components:
   schemas:
+    StudyWrite:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+          description: Present on update
+        namespace_id:
+          type: string
+        study_description:
+          type: string
+        modality:
+          type: string
+    Status:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+    AuditEntry:
+      type: object
+      x-schema-status: modeled
+      properties:
+        uuid:
+          type: string
+        action:
+          type: string
+        user_id:
+          type: string
+        created:
+          type: string
+          format: date-time
+        detail:
+          type: object
+          additionalProperties: true
     Study:
       type: object
       x-schema-status: modeled
@@ -340,6 +375,23 @@ components:
         created:
           type: string
           format: date-time
+    StudyList:
+      type: object
+      x-schema-status: modeled
+      properties:
+        page:
+          type: object
+          properties:
+            number:
+              type: integer
+            rows:
+              type: integer
+            total:
+              type: integer
+        studies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Study'
     Share:
       type: object
       x-schema-status: modeled
@@ -359,52 +411,6 @@ components:
         created:
           type: string
           format: date-time
-    StudyWrite:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-          description: Present on update
-        namespace_id:
-          type: string
-        study_description:
-          type: string
-        modality:
-          type: string
-    AuditEntry:
-      type: object
-      x-schema-status: modeled
-      properties:
-        uuid:
-          type: string
-        action:
-          type: string
-        user_id:
-          type: string
-        created:
-          type: string
-          format: date-time
-        detail:
-          type: object
-          additionalProperties: true
-    StudyList:
-      type: object
-      x-schema-status: modeled
-      properties:
-        page:
-          type: object
-          properties:
-            number:
-              type: integer
-            rows:
-              type: integer
-            total:
-              type: integer
-        studies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Study'
     ShareRequest:
       type: object
       x-schema-status: modeled
@@ -425,12 +431,6 @@ components:
           format: email
         message:
           type: string
-    Status:
-      type: object
-      properties:
-        status:
-          type: string
-          example: OK
   responses:
     StudyResponse:
       description: A study
