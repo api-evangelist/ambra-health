@@ -1,4 +1,4 @@
-# Ambra Health (ambra-health)
+# Ambra Health
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,115 +64,135 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Ambra Health (now part of Intelerad Medical Systems, and rebranded as InteleShare) is a cloud-based medical image management, exchange, and interoperability platform - a cloud VNA and PACS that lets healthcare providers, patients, and researchers store, view, route, and share diagnostic imaging in real time without a VPN or CD. Its imaging data is DICOM, and its v3 Services Public API (historically the DICOM Grid API) exposes programmatic control over studies, patients, users, groups, accounts, namespaces, sharing, storage/images, and webhooks. The REST API is JSON over HTTPS and is authenticated with a session id (`sid`) obtained from `POST /session/login` (supplied as a parameter or via the `X-AmbraHealth-SID` header). Intelerad acquired Ambra Health in 2021 to form a $1.7B cloud PACS and enterprise-imaging leader.
+Ambra Health (now part of Intelerad Medical Systems, and rebranded as InteleShare) is a cloud-based medical image management, exchange, and interoperability platform - a cloud VNA and PACS that lets healthcare providers, patients, and researchers store, view, route, and share diagnostic imaging in real time without a VPN or CD. Its imaging data is DICOM, and its v3 Services Public API (historically the DICOM Grid API) exposes programmatic control over studies, patients, users, groups, accounts, namespaces, sharing, storage/images, and webhooks. The REST API is JSON over HTTPS and is authenticated with a session id (sid) obtained from /session/login. Intelerad acquired Ambra Health in 2021 to form a $1.7B cloud PACS and enterprise-imaging leader.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/ambra-health/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/ambra-health/refs/heads/main/apis.yml)
+**Areas:** Medical Imaging · DICOM · Healthcare · PACS · Image Exchange · Interoperability · VNA · Cloud Imaging
 
-## Tags
+## Ambra Health on APIs.io
 
-- Medical Imaging
-- DICOM
-- Healthcare
-- PACS
-- Image Exchange
-- Interoperability
-- VNA
-- Cloud Imaging
+Everything profiled for Ambra Health is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ambra-health/](https://apis.io/providers/ambra-health/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (10)
 
-- **Created:** 2026-07-05
-- **Modified:** 2026-07-05
+- [Ambra Health Accounts API](https://apis.io/apis/ambra-health/ambra-health-accounts-api/) — Account (tenant) administration
+- [Ambra Health Groups API](https://apis.io/apis/ambra-health/ambra-health-groups-api/) — User groups
+- [Ambra Health Namespaces API](https://apis.io/apis/ambra-health/ambra-health-namespaces-api/) — Namespace permissions, settings, and audit
+- [Ambra Health Patients API](https://apis.io/apis/ambra-health/ambra-health-patients-api/) — Patient records and merges
+- [Ambra Health Session API](https://apis.io/apis/ambra-health/ambra-health-session-api/) — Authentication, session, OAuth, and permissions
+- [Ambra Health Sharing API](https://apis.io/apis/ambra-health/ambra-health-sharing-api/) — Study and filter sharing / image exchange
+- [Ambra Health Storage & Images API](https://apis.io/apis/ambra-health/ambra-health-storage-images-api/) — DICOM data, storage, and annotations
+- [Ambra Health Studies API](https://apis.io/apis/ambra-health/ambra-health-studies-api/) — DICOM study lifecycle, routing, download, and audit
+- [Ambra Health Users API](https://apis.io/apis/ambra-health/ambra-health-users-api/) — User administration and tokens
+- [Ambra Health Webhooks API](https://apis.io/apis/ambra-health/ambra-health-webhooks-api/) — Event webhooks
 
-## APIs
+### Published properties
 
-Base URL for all APIs: `https://access.dicomgrid.com/api/v3` (`access.ambrahealth.com` is an alias). All endpoint paths and verbs are confirmed from the public [v3 Services Public API reference](https://access.dicomgrid.com/api/v3/api.html); the JSON body schemas in the OpenAPI are honestly modeled (marked `x-schema-status: modeled`) because the reference documents commands and parameters but not per-field JSON Schemas.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Ambra Health Session API
+#### Agentic access (1)
 
-Authenticate against the v3 Services API. Log in with credentials to obtain a session id (`sid`), inspect the current user and account permissions, run the OAuth flow, generate PIN authentication, and log out.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://access.dicomgrid.com/api/v3/api.html](https://access.dicomgrid.com/api/v3/api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
+- [Ambra Health Agentic Access](https://apis.io/agentic-access/ambra-health/ambra-health-agentic-access/)
 
-### Ambra Health Studies API
+#### Collections (11)
 
-The core imaging surface. Add, list (with filtering, sorting, pagination), get, update, and delete DICOM studies; approve or reject pending studies; push to external destinations; download study files; add comments; and pull the per-study audit trail.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://access.dicomgrid.com/api/v3/api.html](https://access.dicomgrid.com/api/v3/api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
+- [Ambra Health (InteleShare) v3 Services Public API](https://apis.io/collections/ambra-health/open-ambra-health/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts API](https://apis.io/collections/ambra-health/open-ambra-health-accounts-api/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts Groups API](https://apis.io/collections/ambra-health/open-ambra-health-groups-api/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts Namespaces API](https://apis.io/collections/ambra-health/open-ambra-health-namespaces-api/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts Patients API](https://apis.io/collections/ambra-health/open-ambra-health-patients-api/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts Session API](https://apis.io/collections/ambra-health/open-ambra-health-session-api/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts Sharing API](https://apis.io/collections/ambra-health/open-ambra-health-sharing-api/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts Storage & Images API](https://apis.io/collections/ambra-health/open-ambra-health-storage-images-api/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts Studies API](https://apis.io/collections/ambra-health/open-ambra-health-studies-api/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts Users API](https://apis.io/collections/ambra-health/open-ambra-health-users-api/)
+- [Ambra Health (InteleShare) v3 Services Public Accounts Webhooks API](https://apis.io/collections/ambra-health/open-ambra-health-webhooks-api/)
 
-### Ambra Health Patients API
+#### Security (2)
 
-Manage patient records that studies attach to - add, get, update, delete, and list patients, list a patient's studies, and merge duplicate patient records.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://access.dicomgrid.com/api/v3/api.html](https://access.dicomgrid.com/api/v3/api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
+- [Ambra Health Authentication](https://apis.io/security/ambra-health/ambra-health-authentication/)
+- [Ambra Health Domain Security](https://apis.io/security/ambra-health/ambra-health-domain-security/)
 
-### Ambra Health Users API
+#### Plans and pricing (1)
 
-Administer platform users - add, get, update, delete, and invite users, list the namespaces a user can reach, and manage user API tokens.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://access.dicomgrid.com/api/v3/api.html](https://access.dicomgrid.com/api/v3/api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
+- [Ambra Health Plans Pricing](https://apis.io/plans/ambra-health/ambra-health-plans-pricing/)
 
-### Ambra Health Groups API
+#### Rate limits (1)
 
-Organize users into groups (a group is a namespace that owns studies and members). Create, list, update, and delete groups and add users to them.
+Published request limits.
 
-- **Human URL:** [https://access.dicomgrid.com/api/v3/api.html](https://access.dicomgrid.com/api/v3/api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
+- [Ambra Health Rate Limits](https://apis.io/rate-limits/ambra-health/ambra-health-rate-limits/)
 
-### Ambra Health Accounts API
+#### FinOps (1)
 
-The top-level tenant. List and get accounts, update account settings and sharing configuration, and manage the users attached to an account.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://access.dicomgrid.com/api/v3/api.html](https://access.dicomgrid.com/api/v3/api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
+- [Ambra Health Finops](https://apis.io/finops/ambra-health/ambra-health-finops/)
 
-### Ambra Health Namespaces API
+## Where to find this API
 
-Namespaces (accounts and groups) are the containers that own studies and grant access. Read namespace permissions, settings, and info, and pull the namespace-level audit log.
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- **Human URL:** [https://access.dicomgrid.com/api/v3/api.html](https://access.dicomgrid.com/api/v3/api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
-
-### Ambra Health Sharing API
-
-Ambra's signature image-exchange capability. Share a study with users, groups, or accounts, list active shares, revoke a share, and share saved filters - enabling VPN-free, CD-free collaboration on diagnostic imaging.
-
-- **Human URL:** [https://access.dicomgrid.com/api/v3/api.html](https://access.dicomgrid.com/api/v3/api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
-
-### Ambra Health Storage and Images API
-
-The pixel-and-metadata layer. Load DICOM metadata into a study, list and get DICOM data, and create and list frame-level image annotations. The companion Storage API handles the underlying image bytes.
-
-- **Human URL:** [https://dicomgrid.github.io/sdk-python/storage_api.html](https://dicomgrid.github.io/sdk-python/storage_api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
-
-### Ambra Health Webhooks API
-
-Register HTTP callbacks that Ambra invokes when platform events occur (such as study activity). List, add, update, and delete webhooks and inspect webhook events. Delivery is server-to-endpoint HTTP POST, not a WebSocket.
-
-- **Human URL:** [https://access.dicomgrid.com/api/v3/api.html](https://access.dicomgrid.com/api/v3/api.html)
-- **Base URL:** `https://access.dicomgrid.com/api/v3`
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/dicomgrid)
-- [LinkedIn](https://www.linkedin.com/company/intelerad)
 - [Website](https://ambrahealth.com)
 - [Documentation](https://access.dicomgrid.com/api/v3/api.html)
-- [Plans](plans/ambra-health-plans-pricing.yml)
-- [Rate Limits](rate-limits/ambra-health-rate-limits.yml)
-- [Fin Ops](finops/ambra-health-finops.yml)
+- [GitHub](https://github.com/dicomgrid)
 
-## Review
+## API Evangelist rating
 
-**Does Ambra Health expose a documented public WebSocket API?** No. The v3 Services Public API is request/response REST over HTTPS with `sid` auth; realtime notification is delivered via outbound HTTP webhooks, not a client-connected WebSocket. See [review.yml](review.yml).
+**Kin Score 25.5** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 44.4 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 29.8 |
+| Access clarity | 7.9 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 9.4** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ambra-health/](https://apis.io/providers/ambra-health/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Ambra Health: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ambra-health/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
